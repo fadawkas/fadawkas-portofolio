@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  /* Default dark theme */
+  html.dark {
+    @apply bg-dark-bg text-white;
+  }
+
+  html:not(.dark) {
+    @apply bg-light-bg text-gray-900;
+  }
+}
+
+@layer components {
+  /* Clean card for dark mode */
+  .glass-card-dark {
+    @apply bg-white/5 border border-white/10 rounded-xl;
+  }
+
+  /* Clean card for light mode */
+  .glass-card-light {
+    @apply bg-white border border-gray-200 rounded-xl;
+  }
+
+  /* Plain heading style */
+  .heading-text {
+    @apply text-notion-black dark:text-white;
+  }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --border-angle-2 {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer utilities {
+  /* Spin helpers for other uses */
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes spin-slow-reverse {
+    to { transform: rotate(-360deg); }
+  }
+
+  @keyframes border-spin {
+    to { --border-angle: 360deg; }
+  }
+
+  @keyframes border-spin-reverse {
+    to { --border-angle-2: -360deg; }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 10s linear infinite;
+  }
+
+  .animate-spin-slow-reverse {
+    animation: spin-slow-reverse 15s linear infinite;
+  }
+
+  /* Rotating gradient border — inner ring (DARK MODE) */
+  html.dark .rotating-border {
+    position: relative;
+  }
+
+  html.dark .rotating-border::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0deg,
+      rgba(255, 255, 255, 0.03) 100deg,
+      rgba(255, 255, 255, 0.15) 140deg,
+      rgba(255, 255, 255, 1) 180deg,
+      rgba(255, 255, 255, 0.15) 220deg,
+      rgba(255, 255, 255, 0.03) 260deg,
+      transparent 360deg
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 4px),
+      #fff calc(100% - 4px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 4px),
+      #fff calc(100% - 4px)
+    );
+    animation: border-spin 5s ease-in-out infinite;
+  }
+
+  /* Rotating gradient border — inner ring (LIGHT MODE) */
+  html:not(.dark) .rotating-border {
+    position: relative;
+  }
+
+  html:not(.dark) .rotating-border::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0deg,
+      rgba(0, 0, 0, 0.05) 100deg,
+      rgba(0, 0, 0, 0.3) 140deg,
+      rgba(0, 0, 0, 0.9) 180deg,
+      rgba(0, 0, 0, 0.3) 220deg,
+      rgba(0, 0, 0, 0.05) 260deg,
+      transparent 360deg
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 4px),
+      #000 calc(100% - 4px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 4px),
+      #000 calc(100% - 4px)
+    );
+    animation: border-spin 5s ease-in-out infinite;
+  }
+
+  /* Rotating gradient border — outer ring (DARK MODE) */
+  html.dark .rotating-border-ring {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  html.dark .rotating-border-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      from var(--border-angle-2),
+      transparent 0deg,
+      rgba(255, 255, 255, 0.02) 120deg,
+      rgba(255, 255, 255, 0.12) 160deg,
+      rgba(255, 255, 255, 0.7) 200deg,
+      rgba(255, 255, 255, 0.12) 240deg,
+      rgba(255, 255, 255, 0.02) 280deg,
+      transparent 360deg
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 2px),
+      #fff calc(100% - 2px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 2px),
+      #fff calc(100% - 2px)
+    );
+    animation: border-spin-reverse 8s ease-in-out infinite;
+  }
+
+  /* Rotating gradient border — outer ring (LIGHT MODE) */
+  html:not(.dark) .rotating-border-ring {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  html:not(.dark) .rotating-border-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      from var(--border-angle-2),
+      transparent 0deg,
+      rgba(0, 0, 0, 0.04) 120deg,
+      rgba(0, 0, 0, 0.25) 160deg,
+      rgba(0, 0, 0, 0.9) 200deg,
+      rgba(0, 0, 0, 0.25) 240deg,
+      rgba(0, 0, 0, 0.04) 280deg,
+      transparent 360deg
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 2px),
+      #000 calc(100% - 2px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 2px),
+      #000 calc(100% - 2px)
+    );
+    animation: border-spin-reverse 8s ease-in-out infinite;
+  }
+
+  /* Custom scrollbar for dark mode */
+  .dark ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Custom scrollbar for light mode */
+  html:not(.dark) ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  html:not(.dark) ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  html:not(.dark) ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
