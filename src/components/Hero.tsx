@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Download, MapPin, Mail, Phone } from 'lucide-react';
+import { ArrowDown, Download, MapPin } from 'lucide-react';
 import fadawkasImg from '../assets/Fadawkas.jpeg';
 
 const stats = [
