@@ -56,14 +56,6 @@ export function Hero() {
                 <MapPin className="w-4 h-4" />
                 <span>Tangerang Selatan, Indonesia</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Mail className="w-4 h-4" />
-                <span>oemarkid@gmail.com</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Phone className="w-4 h-4" />
-                <span>+62 851 8686 1325</span>
-              </div>
             </div>
             
             {/* CTA Buttons */}

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, Download, ArrowRight } from 'lucide-react';
+import { Mail, Phone, Linkedin, Github, Download, ArrowRight } from 'lucide-react';
 import { contactItems } from '../data/contact';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -115,16 +115,18 @@ export function Contact() {
             className="mt-12"
           >
             <p className="text-gray-500 dark:text-gray-400 mb-4">
-              Or reach out directly at
+              Or contact me directly at
             </p>
             <a
-              href="mailto:oemarkid@gmail.com"
+              href="https://wa.me/6285186861325"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-xl sm:text-2xl font-semibold
                          text-notion-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300
                          transition-colors duration-200"
             >
-              <Mail className="w-6 h-6" />
-              oemarkid@gmail.com
+              <Phone className="w-6 h-6" />
+              +62 851-8686-1325
             </a>
           </motion.div>
         </div>
