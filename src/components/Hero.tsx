@@ -20,16 +20,16 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-16"
+      className="relative min-h-screen flex items-start xl:items-center pt-24 xl:pt-16"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_auto_minmax(180px,0.55fr)] gap-8 xl:gap-12 items-center">
           {/* Left Column - Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="space-y-6 order-2 lg:order-1"
+            className="space-y-6 order-2 md:order-1"
           >
             {/* Greeting */}
             <p className="text-base text-gray-600 dark:text-gray-400">
@@ -105,7 +105,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-            className="relative flex items-center justify-center order-1 lg:order-2"
+            className="relative flex items-center justify-center order-1 md:order-2"
           >
             <div className="relative">
               {/* Outer rotating ring */}
@@ -114,7 +114,7 @@ export function Hero() {
               {/* Inner rotating border with photo */}
               <div className="relative rotating-border">
                 {/* Circular Photo Frame */}
-                <div className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
+                <div className="w-64 h-64 sm:w-80 sm:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
                   <img
                     src={fadawkasImg}
                     alt="Muhammad Fadawkas Oemarki"
@@ -130,7 +130,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-            className="flex flex-col items-start lg:items-end gap-8 order-3"
+            className="order-3 md:col-span-2 xl:col-span-1 w-full grid grid-cols-2 sm:grid-cols-4 xl:flex xl:flex-col gap-6 xl:gap-8 justify-items-center xl:items-end text-center xl:text-right"
           >
             {stats.map((stat, index) => (
               <motion.div
@@ -138,7 +138,7 @@ export function Hero() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                className="text-right"
+                className="min-w-[90px]"
               >
                 <div className="text-4xl sm:text-5xl font-bold text-notion-black dark:text-white">
                   {stat.number}
