@@ -16,6 +16,8 @@ export const skillGroups: SkillGroup[] = [
       'Scikit-learn',
       'XGBoost',
       'NLP',
+      'Hugging Face',
+      'OpenRouter',
     ],
   },
   {
@@ -48,8 +50,8 @@ export const skillGroups: SkillGroup[] = [
       'Docker Compose',
       'Git',
       'Google Cloud Platform',
-      'Hugging Face',
-      'OpenRouter',
+      'Vercel',
+      'Render',
     ],
   },
 ];
