@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Trophy, Award, GraduationCap } from 'lucide-react';
 import { achievements } from '../data/achievements';
+import { ScrollHeading } from './motion/ScrollHeading';
 
 const iconMap: Record<string, React.ElementType> = {
   'Best Paper - SENAMIKA 2024': Trophy,
@@ -20,9 +21,7 @@ export function Achievements() {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
-            Achievements
-          </p>
+          <ScrollHeading label="Achievements" />
           <h2 className="text-3xl sm:text-4xl font-bold text-notion-black dark:text-white">
             Recognition
           </h2>
@@ -39,7 +38,7 @@ export function Achievements() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
                 className="p-6 rounded-xl text-center
                            bg-white dark:bg-white/5
                            border border-gray-200 dark:border-white/10

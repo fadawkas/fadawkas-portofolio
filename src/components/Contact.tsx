@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, Linkedin, Github, Download, ArrowRight } from 'lucide-react';
 import { contactItems } from '../data/contact';
+import { ScrollHeading } from './motion/ScrollHeading';
 
 const iconMap: Record<string, React.ElementType> = {
   email: Mail,
@@ -25,9 +26,7 @@ export function Contact() {
             transition={{ duration: 0.5 }}
             className="mb-12"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
-              Contact
-            </p>
+            <ScrollHeading label="Contact" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-notion-black dark:text-white mb-4">
               Let's build something{' '}
               <span className="text-gray-500">together.</span>
@@ -59,7 +58,7 @@ export function Contact() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.15 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
                   className={`group flex items-center gap-4 p-4 rounded-xl
                              border transition-all duration-300 ${
                                isCv

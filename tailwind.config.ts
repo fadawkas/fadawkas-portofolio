@@ -18,9 +18,9 @@ export default {
           border: 'rgba(255, 255, 255, 0.08)',
         },
         light: {
-          bg: '#ffffff',
-          card: '#f7f6f3',
-          border: '#e9e9e7',
+          bg: '#fafafa',
+          card: '#f1f1f0',
+          border: '#e7e7e6',
         },
         notion: {
           black: '#111111',

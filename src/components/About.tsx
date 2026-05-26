@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
-import fadawkasImg from '../assets/Fadawkas.jpeg';
+import fadawkasImg from '../assets/Fadawkas-2.jpeg';
+import { NumberTicker } from './motion/NumberTicker';
+import { ScrollHeading } from './motion/ScrollHeading';
 
 export function About() {
   return (
-    <section id="about" className="py-20 lg:py-32">
+    <section id="about" className="py-24 lg:py-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Label */}
         <motion.div
@@ -11,18 +13,16 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.5 }}
-          className="mb-12"
+          className="mb-16 lg:mb-24"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
-            About
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-notion-black dark:text-white">
+          <ScrollHeading label="About" className="mb-5" />
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-notion-black dark:text-white leading-tight">
             Turning Complex Ideas Into{' '}
             <span className="text-gray-500">Reliable Digital Products</span>
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 xl:gap-28 items-start">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -31,7 +31,7 @@ export function About() {
             transition={{ duration: 0.5 }}
             className="order-2 lg:order-1"
           >
-            <div className="relative w-full max-w-sm mx-auto lg:mx-0 aspect-square rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm">
+            <div className="relative w-full max-w-sm mx-auto lg:mx-0 lg:max-w-md aspect-[4/5] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm">
               <img
                 src={fadawkasImg}
                 alt="Muhammad Fadawkas Oemarki"
@@ -46,10 +46,10 @@ export function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-8 order-1 lg:order-2"
+            className="space-y-12 lg:space-y-16 order-1 lg:order-2"
           >
             {/* Bio */}
-            <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-400 text-justify leading-loose">
               <p>
                 I am a fresh graduate in Informatics from Universitas Pembangunan Nasional "Veteran" Jakarta
                 with a strong focus on full-stack development and AI-powered systems. My work combines
@@ -69,17 +69,23 @@ export function About() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              <div className="p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                <div className="text-2xl font-bold text-notion-black dark:text-white mb-1">5+</div>
+            <div className="grid grid-cols-3 gap-5 lg:gap-6 pt-4 lg:pt-2">
+              <div className="p-5 lg:p-6 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
+                <div className="text-2xl font-bold text-notion-black dark:text-white mb-1">
+                  <NumberTicker target={5} suffix="+" />
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">AI Projects</div>
               </div>
-              <div className="p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                <div className="text-2xl font-bold text-notion-black dark:text-white mb-1">1</div>
+              <div className="p-5 lg:p-6 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
+                <div className="text-2xl font-bold text-notion-black dark:text-white mb-1">
+                  <NumberTicker target={1} />
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">Year Experience</div>
               </div>
-              <div className="p-4 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                <div className="text-2xl font-bold text-notion-black dark:text-white mb-1">3.87</div>
+              <div className="p-5 lg:p-6 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
+                <div className="text-2xl font-bold text-notion-black dark:text-white mb-1">
+                  <NumberTicker target={3.87} decimals={2} />
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">GPA</div>
               </div>
             </div>

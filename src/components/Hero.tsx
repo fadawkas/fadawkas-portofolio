@@ -1,15 +1,21 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, Download, MapPin } from 'lucide-react';
 import fadawkasImg from '../assets/Fadawkas.jpeg';
+import { WordReveal } from './motion/WordReveal';
+import { NumberTicker } from './motion/NumberTicker';
+import { MagneticButton } from './motion/MagneticButton';
 
 const stats = [
-  { number: '5+', label: 'Projects Delivered' },
-  { number: '3', label: 'Certifications' },
-  { number: '1', label: 'Years Experience' },
-  { number: '3.87', label: 'GPA' },
+  { target: 5, decimals: 0, suffix: '+', label: 'Projects Delivered' },
+  { target: 3, decimals: 0, suffix: '', label: 'Certifications' },
+  { target: 1, decimals: 0, suffix: '', label: 'Years Experience' },
+  { target: 3.87, decimals: 2, suffix: '', label: 'GPA' },
 ];
 
 export function Hero() {
+  const { scrollY } = useScroll();
+  const photoY = useTransform(scrollY, [0, 600], [0, -80]);
+
   const handleScrollToProjects = () => {
     const element = document.querySelector('#projects');
     if (element) {
@@ -38,11 +44,44 @@ export function Hero() {
 
             {/* Main Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-notion-black dark:text-white">
-              An <span className="italic font-serif">AI Engineer</span>
-              <br />
-              <span className="text-gray-400">& Full-Stack</span>
-              <br />
-              DEVELOPER
+              <WordReveal
+                text="An"
+                as="span"
+                className="block"
+                delay={0.1}
+              />
+              <span className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: '100%', opacity: 0, filter: 'blur(8px)' }}
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{ display: 'inline-block' }}
+                  className="italic font-serif"
+                >
+                  AI Engineer
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: '100%', opacity: 0, filter: 'blur(8px)' }}
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  transition={{ duration: 0.6, delay: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{ display: 'inline-block' }}
+                  className="text-gray-400"
+                >
+                  & Full-Stack
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: '100%', opacity: 0, filter: 'blur(8px)' }}
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  transition={{ duration: 0.6, delay: 0.44, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{ display: 'inline-block' }}
+                >
+                  DEVELOPER
+                </motion.span>
+              </span>
             </h1>
 
             {/* Bio */}
@@ -60,35 +99,37 @@ export function Hero() {
             
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 pt-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleScrollToProjects}
-                className="inline-flex items-center gap-2 px-6 py-3
-                           bg-notion-black hover:bg-gray-800
-                           text-white
-                           font-semibold rounded-full
-                           transition-all duration-200"
-              >
-                View Projects
-                <ArrowDown className="w-4 h-4" />
-              </motion.button>
-              <motion.a
-                href="/Fadawkas_CV.pdf"
-                download
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-6 py-3
-                           bg-white dark:bg-transparent
-                           text-notion-black dark:text-white
-                           font-semibold rounded-full
-                           border border-gray-200 dark:border-white/20
-                           hover:bg-gray-50 dark:hover:bg-white/5
-                           transition-all duration-200"
-              >
-                <Download className="w-4 h-4" />
-                Download CV
-              </motion.a>
+              <MagneticButton>
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
+                  onClick={handleScrollToProjects}
+                  className="inline-flex items-center gap-2 px-6 py-3
+                             bg-notion-black hover:bg-gray-800
+                             text-white
+                             font-semibold rounded-full
+                             transition-all duration-200"
+                >
+                  View Projects
+                  <ArrowDown className="w-4 h-4" />
+                </motion.button>
+              </MagneticButton>
+              <MagneticButton>
+                <motion.a
+                  href="/Fadawkas_CV.pdf"
+                  download
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 px-6 py-3
+                             bg-white dark:bg-transparent
+                             text-notion-black dark:text-white
+                             font-semibold rounded-full
+                             border border-gray-200 dark:border-white/20
+                             hover:bg-gray-50 dark:hover:bg-white/5
+                             transition-all duration-200"
+                >
+                  <Download className="w-4 h-4" />
+                  Download CV
+                </motion.a>
+              </MagneticButton>
             </div>
           </motion.div>
 
@@ -99,7 +140,7 @@ export function Hero() {
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
             className="relative flex items-center justify-center order-1 md:order-2"
           >
-            <div className="relative">
+            <motion.div className="relative" style={{ y: photoY }}>
               {/* Outer rotating ring */}
               <div className="absolute -inset-8 rotating-border-ring" />
 
@@ -114,7 +155,7 @@ export function Hero() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Right Column - Stats */}
@@ -133,7 +174,7 @@ export function Hero() {
                 className="min-w-[90px]"
               >
                 <div className="text-4xl sm:text-5xl font-bold text-notion-black dark:text-white">
-                  {stat.number}
+                  <NumberTicker target={stat.target} decimals={stat.decimals} suffix={stat.suffix} />
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                   {stat.label}

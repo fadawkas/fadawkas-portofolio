@@ -27,6 +27,9 @@ import raga2 from '../assets/projects/raga-2.png';
 import raga3 from '../assets/projects/raga-3.png';
 import flood1 from '../assets/projects/flood-1.png';
 import flood2 from '../assets/projects/flood-2.png';
+import nobi1 from '../assets/projects/nobi-1.png';
+import nobi2 from '../assets/projects/nobi-2.png';
+import nobi3 from '../assets/projects/nobi-3.png';
 
 export const projects: Project[] = [
   {
@@ -43,6 +46,21 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/fadawkas/themisai',
       demo: '#',
+    },
+  },
+  {
+    id: 'nobi-interview-training',
+    name: 'AI Interview Training Platform',
+    category: 'AI / Full-Stack',
+    description:
+      'Full-stack AI-powered interview preparation platform with contextual question generation, real-time speech transcription via OpenAI Whisper, facial expression analysis, and structured candidate feedback.',
+    detailDescription:
+      'NobiAI is a production-ready interview simulation platform that replicates the pressure and nuance of real job interviews. Users select a target role and company, and the system generates contextually relevant interview questions tailored to that position. During the session, the React frontend streams the webcam feed to the backend, which stores the video and queues it for asynchronous processing via an Agenda.js job worker. The Express.js backend extracts audio using FFmpeg and forwards it to a FastAPI AI service running OpenAI Whisper for high-accuracy automatic speech recognition. In parallel, a facial emotion model (FEM) analyzes frame-by-frame expressions throughout the answer, computing confidence scores and dominant emotion distributions. The AI service then invokes an LLM to evaluate the transcript against the question context, producing a structured feedback report with identified strengths, areas for improvement, and actionable coaching suggestions — all persisted in MongoDB. The entire stack is containerized with Docker Compose, sharing a volume between services for media file exchange. The result is an end-to-end feedback loop covering linguistic clarity, emotional confidence, and domain relevance.',
+    techStack: ['React', 'TypeScript', 'Express.js', 'FastAPI', 'MongoDB', 'OpenAI Whisper', 'Docker'],
+    highlight: 'Real-Time Transcription • Emotion Scoring',
+    images: [nobi1, nobi2, nobi3],
+    links: {
+      github: 'https://github.com/fadawkas/nobi-interview-training',
     },
   },
   {

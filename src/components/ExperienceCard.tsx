@@ -16,6 +16,7 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: false, amount: 0.15 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
       className="relative"
     >
       <div

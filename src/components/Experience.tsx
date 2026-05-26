@@ -1,8 +1,19 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { experiences } from '../data/experience';
 import { ExperienceCard } from './ExperienceCard';
+import { ScrollHeading } from './motion/ScrollHeading';
 
 export function Experience() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const scaleY = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
+
   return (
     <section
       id="experience"
@@ -17,9 +28,7 @@ export function Experience() {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
-            Experience
-          </p>
+          <ScrollHeading label="Experience" />
           <h2 className="text-3xl sm:text-4xl font-bold text-notion-black dark:text-white mb-4">
             Work History
           </h2>
@@ -30,9 +39,14 @@ export function Experience() {
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative">
+        <div className="relative" ref={timelineRef}>
           {/* Timeline Line - Desktop */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 dark:bg-white/10" />
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 dark:bg-white/10">
+            <motion.div
+              className="absolute inset-0 w-full bg-notion-black dark:bg-white origin-top"
+              style={{ scaleY }}
+            />
+          </div>
 
           {/* Experience Cards */}
           <div className="space-y-8 lg:space-y-12">

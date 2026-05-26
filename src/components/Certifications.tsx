@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FileCheck } from 'lucide-react';
 import { certifications } from '../data/certifications';
+import { ScrollHeading } from './motion/ScrollHeading';
 
 export function Certifications() {
   return (
@@ -14,9 +15,7 @@ export function Certifications() {
           transition={{ duration: 0.5 }}
           className="mb-12"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
-            Certifications
-          </p>
+          <ScrollHeading label="Certifications" />
           <h2 className="text-2xl sm:text-3xl font-bold text-notion-black dark:text-white">
             Credentials
           </h2>

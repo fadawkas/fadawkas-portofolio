@@ -212,6 +212,47 @@
     animation: border-spin-reverse 8s ease-in-out infinite;
   }
 
+  /* Marquee scroll animation */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+
+  /* Grain overlay — theme-aware blend mode */
+  html.dark .grain-overlay {
+    mix-blend-mode: overlay;
+    opacity: 0.04;
+  }
+
+  html:not(.dark) .grain-overlay {
+    mix-blend-mode: multiply;
+    opacity: 0.025;
+  }
+
+  /* Cursor spotlight effect — fixed global overlay */
+  html.dark .spotlight-radial {
+    background: radial-gradient(
+      600px circle at var(--spotlight-x) var(--spotlight-y),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+    mix-blend-mode: plus-lighter;
+  }
+
+  html:not(.dark) .spotlight-radial {
+    background: radial-gradient(
+      500px circle at var(--spotlight-x) var(--spotlight-y),
+      rgba(0, 0, 0, 0.10),
+      transparent 50%
+    );
+    mix-blend-mode: multiply;
+  }
+
   /* Custom scrollbar for dark mode */
   .dark ::-webkit-scrollbar {
     width: 8px;

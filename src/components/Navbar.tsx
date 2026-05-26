@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Download } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
+import type Lenis from 'lenis';
 
 interface NavbarProps {
   theme: 'dark' | 'light';
@@ -18,17 +19,38 @@ const navLinks = [
 
 export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    if (latest > prev && latest > 80) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
+  // Close mobile menu on hide
+  useEffect(() => {
+    if (hidden) setIsMenuOpen(false);
+  }, [hidden]);
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const lenis = (window as unknown as Record<string, unknown>).__lenis as Lenis | undefined;
+    if (lenis) {
+      lenis.scrollTo(href);
+    } else {
+      const element = document.querySelector(href);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <header
+    <motion.header
+      animate={{ y: hidden ? '-100%' : '0%' }}
+      transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="fixed top-0 left-0 right-0 z-50 
                  bg-white/80 dark:bg-dark-bg/80 
                  backdrop-blur-md border-b 
@@ -73,7 +95,10 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                 >
                   {link.label}
                   {isActive && (
-                    <span className="block h-0.5 mt-0.5 bg-notion-black dark:bg-white rounded-full" />
+                    <motion.span
+                      layoutId="navUnderline"
+                      className="block h-0.5 mt-0.5 bg-notion-black dark:bg-white rounded-full"
+                    />
                   )}
                 </a>
               );
@@ -167,6 +192,6 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
