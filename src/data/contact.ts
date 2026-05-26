@@ -15,7 +15,7 @@ export const contactItems: ContactItem[] = [
   {
     type: 'LinkedIn',
     label: 'LinkedIn',
-    url: 'https://linkedin.com/in/fadawkas',
+    url: 'https://www.linkedin.com/in/muhammad-fadawkas/',
     icon: 'linkedin',
   },
   {
