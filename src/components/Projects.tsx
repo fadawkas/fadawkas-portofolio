@@ -39,7 +39,7 @@ export function Projects() {
             Featured Work
           </h2>
           <p className="text-base text-gray-500 dark:text-gray-400 max-w-2xl text-justify leading-loose">
-            A curated set of projects across full-stack development, applied technology, and AI, 
+            A curated set of projects across full-stack development, applied technology, and AI - 
             blending technical depth with practical, real-world solutions.
           </p>
         </motion.div>
