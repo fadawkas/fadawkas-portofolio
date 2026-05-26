@@ -39,8 +39,8 @@ export function Projects() {
             Featured Work
           </h2>
           <p className="text-base text-gray-500 dark:text-gray-400 max-w-2xl text-justify leading-loose">
-            A selection of AI, backend, and full-stack projects I've built — from RAG-powered legal systems
-            to real-time monitoring platforms and machine learning applications.
+            A curated set of projects across full-stack development, applied technology, and AI, 
+            blending technical depth with practical, real-world solutions.
           </p>
         </motion.div>
 
