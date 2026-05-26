@@ -6,7 +6,7 @@ import { NumberTicker } from './motion/NumberTicker';
 import { MagneticButton } from './motion/MagneticButton';
 
 const stats = [
-  { target: 5, decimals: 0, suffix: '+', label: 'Projects Delivered' },
+  { target: 10, decimals: 0, suffix: '+', label: 'Projects Delivered' },
   { target: 3, decimals: 0, suffix: '', label: 'Certifications' },
   { target: 1, decimals: 0, suffix: '', label: 'Years Experience' },
   { target: 3.87, decimals: 2, suffix: '', label: 'GPA' },
