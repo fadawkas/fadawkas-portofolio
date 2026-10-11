@@ -33,8 +33,8 @@ export function Experience() {
             Work History
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-            Real-world engineering experience in AI workflow development,
-            backend systems, and production-oriented infrastructure.
+            Engineering experience across agentic AI workflows, voice systems,
+            backend integrations, RAG pipelines, and API development.
           </p>
         </motion.div>
 

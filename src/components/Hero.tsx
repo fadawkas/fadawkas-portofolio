@@ -7,7 +7,7 @@ import { MagneticButton } from './motion/MagneticButton';
 
 const stats = [
   { target: 10, decimals: 0, suffix: '+', label: 'Projects Delivered' },
-  { target: 3, decimals: 0, suffix: '', label: 'Certifications' },
+  { target: 5, decimals: 0, suffix: '', label: 'Certifications' },
   { target: 1, decimals: 0, suffix: '', label: 'Years Experience' },
   { target: 3.87, decimals: 2, suffix: '', label: 'GPA' },
 ];
@@ -86,7 +86,7 @@ export function Hero() {
 
             {/* Bio */}
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-md leading-relaxed">
-              Fresh graduate in Informatics with a strong focus on building scalable web applications, designing backend services, and integrating Large Language Models into practical, production-ready workflows.
+              AI Engineer building agentic AI workflows, tool-calling integrations, and backend services across LLM, RAG, conversational, and full-stack applications.
             </p>
 
             {/* Contact Info */}
@@ -197,7 +197,7 @@ export function Hero() {
                 AI-Powered Systems
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Building intelligent automation with LLMs, RAG pipelines, and AI agents for real-world applications.
+                Building AI applications with LLMs, RAG pipelines, and tool-calling agents, with interests spanning workflow automation and agentic voice AI.
               </p>
             </div>
             <div>
@@ -205,7 +205,7 @@ export function Hero() {
                 Full-Stack Development
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                End-to-end web applications using React, FastAPI, and modern database systems.
+                Building end-to-end web applications with Python and JavaScript frameworks, connecting user interfaces, backend APIs, and databases.
               </p>
             </div>
             <div>
@@ -213,7 +213,7 @@ export function Hero() {
                 Production-Ready Infrastructure
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Docker containerization, staging environments, and scalable cloud deployments.
+                Configuring Docker-based environments and staging setups across frontend, backend, AI services, and external integrations to support testing and deployment readiness.
               </p>
             </div>
             <div>

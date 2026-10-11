@@ -37,9 +37,9 @@ export const projects: Project[] = [
     name: 'RAG-Based Criminal Law Consultation',
     category: 'AI / RAG',
     description:
-      'Web-based criminal law consultation system using Retrieval-Augmented Generation and Large Language Models to deliver contextual, accurate, and domain-specific legal responses.',
+      'A legal research assistant that answers questions about Indonesian criminal law using retrieved legal documents as context, with consultation history and a RAG evaluation workflow.',
     detailDescription:
-      'RAG-Based Criminal Law Consultation is a full-stack legal AI assistant engineered to democratize access to criminal law consultation. At its core, the system employs a Retrieval-Augmented Generation (RAG) pipeline that ingests and indexes Indonesian criminal law documents into a FAISS vector store, enabling semantic search over thousands of legal passages. When a user submits a legal query, the system retrieves the most contextually relevant law segments and feeds them into a Large Language Model, which generates a grounded, citation-backed response that drastically reduces hallucination risk compared to vanilla LLM usage. The FastAPI backend orchestrates the entire RAG workflow, while the React and TypeScript frontend provides an intuitive chat interface with real-time streaming responses. PostgreSQL persists user sessions and query history for full auditability. Containerized with Docker, this system is ready for production deployment, with evaluation metrics showing an Answer Relevancy of 0.801 and a Context Precision of 1.00, confirming that every retrieved document was perfectly relevant to the user query.',
+      'I built ThemisAI as an academic project to explore how retrieval-augmented generation can support Indonesian criminal-law research. The application combines a React and TypeScript interface with a FastAPI backend, a FAISS vector index, and PostgreSQL for user accounts and consultation history. When a user submits a question, the system retrieves relevant legal passages and supplies them to the language model as context for its response. The project also includes RAGAS evaluation and model-comparison experiments to assess retrieval and response quality.',
     techStack: ['FastAPI', 'React', 'TypeScript', 'FAISS', 'PostgreSQL', 'Docker'],
     highlight: 'Answer Relevancy: 0.801 • Context Precision: 1.00',
     images: [ragLaw1, ragLaw2, ragLaw3],
@@ -53,11 +53,11 @@ export const projects: Project[] = [
     name: 'AI Interview Training Platform',
     category: 'AI / Full-Stack',
     description:
-      'Full-stack AI-powered interview preparation platform with contextual question generation, real-time speech transcription via OpenAI Whisper, facial expression analysis, and structured candidate feedback.',
+      'An interview practice platform that generates contextual questions and processes recorded answers in the background to provide speech transcription, facial-expression analysis, and structured feedback.',
     detailDescription:
-      'NobiAI is a production-ready interview simulation platform that replicates the pressure and nuance of real job interviews. Users select a target role and company, and the system generates contextually relevant interview questions tailored to that position. During the session, the React frontend streams the webcam feed to the backend, which stores the video and queues it for asynchronous processing via an Agenda.js job worker. The Express.js backend extracts audio using FFmpeg and forwards it to a FastAPI AI service running OpenAI Whisper for high-accuracy automatic speech recognition. In parallel, a facial emotion model (FEM) analyzes frame-by-frame expressions throughout the answer, computing confidence scores and dominant emotion distributions. The AI service then invokes an LLM to evaluate the transcript against the question context, producing a structured feedback report with identified strengths, areas for improvement, and actionable coaching suggestions — all persisted in MongoDB. The entire stack is containerized with Docker Compose, sharing a volume between services for media file exchange. The result is an end-to-end feedback loop covering linguistic clarity, emotional confidence, and domain relevance.',
+      'I built NobiAI to help users practice interview answers and review feedback after each session. The application combines a React and TypeScript frontend, an Express API, and a separate FastAPI service for speech transcription and facial-expression analysis. Recorded answers are stored and processed in the background, with audio transcribed using Whisper and video analyzed for facial expressions. The results are presented alongside structured feedback, while MongoDB stores session data and Docker Compose connects the application services.',
     techStack: ['React', 'TypeScript', 'Express.js', 'FastAPI', 'MongoDB', 'OpenAI Whisper', 'Docker'],
-    highlight: 'Real-Time Transcription • Emotion Scoring',
+    highlight: 'Recorded-Answer Transcription • Background Analysis',
     images: [nobi1, nobi2, nobi3],
     links: {
       github: 'https://github.com/fadawkas/nobi-interview-training',
@@ -68,9 +68,9 @@ export const projects: Project[] = [
     name: 'Real-Time Infrastructure Monitoring',
     category: 'Monitoring / DevOps',
     description:
-      'Real-time monitoring and incident management platform with alert evaluation, service status tracking, and SSE-powered live dashboards. Containerized telemetry ingestion pipeline.',
+      'A monitoring and incident-management console that collects telemetry, evaluates configurable alert rules, and streams dashboard updates through Server-Sent Events.',
     detailDescription:
-      'Real-Time Infrastructure Monitoring is a production-grade observability platform purpose-built for teams that need real-time visibility into their infrastructure. The system features a Go-based telemetry ingestion service that parses and processes metric streams, evaluates them against configurable alert thresholds, and pushes live updates to the React frontend via Server-Sent Events (SSE) with sub-second latency from metric ingestion to dashboard update. The alert engine supports severity classification, deduplication, and escalation policies, ensuring that on-call engineers are notified about the right issues at the right time. Service status tracking provides a comprehensive view of component health with historical uptime records. All telemetry data, alert configurations, and incident logs are persisted in PostgreSQL for post-mortem analysis. The entire stack, including the Go collector, React UI, and database, is orchestrated via Docker Compose for seamless local development and one-command production deployment.',
+      'I built HeimOps to connect telemetry collection, alert evaluation, and incident management in one application. A containerized Go agent sends telemetry to a Go backend, which stores data in PostgreSQL and evaluates rules using thresholds, time windows, minimum sample counts, and cooldowns. Server-Sent Events stream updates to the React dashboard, where users can review alerts and move incidents through open, acknowledged, and resolved states. The project also includes asynchronous Discord notifications and a Docker Compose setup for running the stack locally.',
     techStack: ['Go', 'React', 'PostgreSQL', 'SSE', 'Docker Compose'],
     highlight: 'Real-Time Monitoring • Alert Engine',
     images: [infraMon1, infraMon2, infraMon3],
@@ -84,9 +84,9 @@ export const projects: Project[] = [
     name: 'ML-Based Phishing Detection',
     category: 'Security / Machine Learning',
     description:
-      'Chrome extension with a Flask backend and React frontend, utilizing an XGBoost machine learning model to detect phishing by analyzing URLs through feature extraction, achieving 85% accuracy on testing.',
+      'A Chrome extension that analyzes website URLs with a machine-learning classifier and displays the prediction through a browser interface backed by a Flask API.',
     detailDescription:
-      'This project delivers a complete browser-based defense against phishing attacks, combining a Chrome extension frontend with a Flask API backend powered by a trained XGBoost classifier. When a user visits a site, the extension extracts over 30 URL-based features including domain age, subdomain depth, presence of IP addresses, URL length, special character ratios, and TLD rarity, then sends them to the Flask inference endpoint. The XGBoost model, trained on a curated dataset of legitimate and phishing URLs, evaluates the feature vector and returns a risk score with explainable classifications in under 200 milliseconds. The React-based popup UI presents the result in a clean traffic-light format of safe, suspicious, or dangerous with feature breakdowns so users understand why a site was flagged. On the benchmark test set, the model achieved 85% detection accuracy with a low false-positive rate, making it practical for day-to-day browsing. The extension integrates seamlessly into the Chrome toolbar and runs silently in the background, alerting users only when a threat is detected.',
+      'I developed this project to explore how machine learning can help identify potentially suspicious website URLs. It combines URL feature extraction and an XGBoost classifier with a Flask inference API and a React-based Chrome extension interface. The extension sends a URL for analysis and displays the model’s prediction. The repository includes datasets and notebooks for feature extraction and model development, connecting the research workflow to a browser-based application.',
     techStack: ['Flask', 'React', 'XGBoost', 'Chrome Extension'],
     highlight: '85% Detection Accuracy',
     images: [shish1, shish2, shish3],
@@ -100,9 +100,9 @@ export const projects: Project[] = [
     name: 'NLP Fitness Recommendation System',
     category: 'AI Chatbot',
     description:
-      'A rule-based chatbot using NLP and a Neural Network model to provide fitness recommendations and motivational support, integrated into a React-based website with Flask and MySQL for seamless user interaction and data management.',
+      'A fitness chatbot that uses NLP and a neural-network intent classifier to match user questions with predefined workout recommendations and motivational responses.',
     detailDescription:
-      'Raga-Bot is an intelligent fitness companion that combines natural language processing with neural network classification to deliver personalized workout and nutrition guidance. The chatbot processes user input through a multi-stage NLP pipeline including tokenization, stop-word removal, stemming, and TF-IDF vectorization before passing the processed query to a trained Neural Network classifier that maps intents across more than 15 fitness categories, from strength training routines and cardio plans to dietary recommendations and recovery protocols. With 100% intent recognition accuracy on the test set, the bot reliably understands user needs and responds with curated, evidence-based advice. The React frontend presents a modern conversational UI with rich media responses, while Flask handles API orchestration and MySQL stores user profiles, conversation history, and progression tracking. The system learns from each interaction, allowing it to tailor future recommendations based on the user\'s fitness journey, goals, and past feedback.',
+      'I built Raga-Bot to make fitness information accessible through a conversational interface. The system processes user messages and uses a neural-network classifier to identify intents, then selects a predefined response for the recognized category. The application combines a React interface, a Flask backend, and MySQL for application data. This project connects intent-classification experiments with a web application for fitness recommendations and motivational support.',
     techStack: ['React', 'Flask', 'MySQL', 'NLP', 'Neural Network'],
     highlight: '100% Intent Recognition Accuracy',
     images: [raga1, raga2, raga3],
@@ -116,9 +116,9 @@ export const projects: Project[] = [
     name: 'ML-Based Flood Prediction',
     category: 'Research / Machine Learning',
     description:
-      'Machine learning project using Support Vector Machine (SVM) and K-Nearest Neighbor (KNN) algorithms, evaluated through Stratified K-Fold Cross Validation, to predict rainfall rates and assess flood risks in Jakarta.',
+      'A machine-learning research project comparing SVM and KNN for rainfall classification and flood-risk assessment in Jakarta using stratified cross-validation.',
     detailDescription:
-      'This research-grade machine learning project tackles one of Jakarta\'s most pressing challenges, flood risk prediction, by comparing two powerful classification algorithms: Support Vector Machine (SVM) and K-Nearest Neighbor (KNN). The study uses historical rainfall, water elevation, and geographic data to train both models, with features engineered to capture seasonal patterns, extreme weather indicators, and regional flood susceptibility factors. To ensure statistical robustness, the models were evaluated using Stratified K-Fold Cross Validation with k equals 10, preserving class distribution across every fold. SVM achieved 90.19% accuracy, while KNN closely followed at 88.32%, demonstrating that machine learning can provide reliable, data-driven flood risk assessments for urban planning and early warning systems. This research was accepted and published at SENAMIKA 2024, a national computer science symposium, contributing valuable insights into the applicability of classical machine learning methods for environmental hazard prediction in developing urban centers.',
+      'I worked on this research project to compare SVM and KNN approaches for rainfall classification and flood-risk assessment in Jakarta. The workflow covers data preparation, model training, parameter experiments, and evaluation using Stratified K-Fold Cross Validation. The repository includes the dataset and experiment notebooks, allowing the model-development process to be inspected. The research was presented at SENAMIKA 2024 and received Best Paper and Best Presenter recognition.',
     techStack: ['Python', 'Scikit-learn', 'SVM', 'KNN', 'Machine Learning'],
     highlight: 'SVM 90.19% • KNN 88.32% Accuracy',
     images: [flood1, flood2],

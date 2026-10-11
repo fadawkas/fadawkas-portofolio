@@ -14,12 +14,14 @@ export const experiences: Experience[] = [
     company: 'Neuram',
     role: 'AI Engineer',
     period: 'Mar 2026 - Present',
-    location: 'Jakarta, Indonesia',
+    location: 'Jakarta, Indonesia · On-site',
     companyDescription:
-      'AI solutions company building intelligent automation systems, AI agents, and scalable production-ready AI workflows for enterprise clients.',
+      'Developing agentic voice AI workflows and integrations across backend systems, AI services, and external tools.',
     achievements: [
-      'Built and configured AI agent workflows, including tool integrations, agent skills, and automated task execution pipelines to support real-world client operations.',
-      'Configured and maintained staging environments across frontend, backend, AI services, and third-party integrations, ensuring production-ready reliability for high-volume user traffic.',
+      'Develop agentic voice AI workflows that support real-time conversations and contextual actions through tool calling.',
+      'Implement backend integrations connecting AI agents with APIs, external services, and automated workflows.',
+      'Develop and experiment with custom voice AI pipelines involving conversational intelligence, speech processing, and telephony integration.',
+      'Configure and maintain staging environments across frontend, backend, AI services, and external integrations to support testing and deployment readiness.',
     ],
   },
   {
@@ -27,12 +29,14 @@ export const experiences: Experience[] = [
     company: 'Kuasar',
     role: 'Backend & AI Engineer Intern',
     period: 'May 2025 - Aug 2025',
-    location: 'Jakarta, Indonesia',
+    location: 'Jakarta, Indonesia · Remote',
     companyDescription:
-      'Technology solutions company helping clients develop intelligent applications powered by AI and modern backend systems.',
+      'Contributed backend and AI components to an underwriting platform using LLMs, LangGraph, RAG, FastAPI, and PostgreSQL.',
     achievements: [
-      'Built an AI-powered underwriting platform integrating LLM-based chatbot services using LangGraph and RAG pipelines.',
-      'Designed and implemented scalable REST APIs using FastAPI and PostgreSQL, supporting production workloads.',
+      'Developed backend and AI components for an underwriting platform with LLM-based chatbot capabilities.',
+      'Implemented LangGraph workflows and RAG pipelines to retrieve relevant context for conversational responses.',
+      'Designed and implemented REST APIs using FastAPI and PostgreSQL to support application workflows and data persistence.',
+      'Supported backend workflows used in staging and production environments.',
     ],
   },
 ];

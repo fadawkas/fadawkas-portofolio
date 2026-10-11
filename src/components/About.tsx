@@ -49,22 +49,19 @@ export function About() {
             className="space-y-12 lg:space-y-16 order-1 lg:order-2"
           >
             {/* Bio */}
-            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-400 text-justify leading-loose">
+            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-400 text-left leading-relaxed">
               <p>
-                I am a fresh graduate in Informatics from Universitas Pembangunan Nasional "Veteran" Jakarta
-                with a strong focus on full-stack development and AI-powered systems. My work combines
-                modern web development, backend architecture, LLM integration, RAG pipelines, and AI workflow automation.
+                I’m Fadawkas, an AI Engineer who enjoys turning complex ideas into useful software.
+                My work brings together AI, backend engineering, and full-stack development. I build
+                LLM workflows, connect agents to tools and external services, and develop the APIs
+                and applications that support them.
               </p>
               <p>
-                Currently working as an AI Engineer at Neuram, where I build and configure AI agent workflows,
-                tool integrations, and automated task execution pipelines for enterprise clients. Previously,
-                I interned at Kuasar as a Backend & AI Engineer, developing an AI-powered underwriting platform
-                with LangGraph and RAG pipelines.
-              </p>
-              <p>
-                I am passionate about creating reliable, automation-driven solutions that connect modern web systems
-                with intelligent AI capabilities. My research on flood prediction using SVM and KNN algorithms
-                earned me Best Presenter and Best Paper awards at SENAMIKA 2024.
+                I’m interested in how systems fit together, how AI uses context, how
+                services communicate, and how background tasks are coordinated. I graduated in
+                Informatics from UPN “Veteran” Jakarta, where I also explored machine learning
+                research and student leadership. My approach is to build with purpose, keep software
+                understandable, and improve through hands-on work.
               </p>
             </div>
 
