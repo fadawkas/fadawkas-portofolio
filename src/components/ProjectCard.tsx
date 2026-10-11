@@ -86,7 +86,7 @@ export function ProjectCard({ project, index, onViewDetails, isAnyHovered, isThi
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3">
+        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
           {project.description}
         </p>
 

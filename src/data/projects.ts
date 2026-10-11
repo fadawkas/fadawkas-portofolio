@@ -37,7 +37,7 @@ export const projects: Project[] = [
     name: 'RAG-Based Criminal Law Consultation',
     category: 'AI / RAG',
     description:
-      'A legal research assistant that answers questions about Indonesian criminal law using retrieved legal documents as context, with consultation history and a RAG evaluation workflow.',
+      'A legal research assistant that uses retrieved Indonesian criminal-law documents to answer questions, with consultation history and RAG evaluation.',
     detailDescription:
       'I built ThemisAI as an academic project to explore how retrieval-augmented generation can support Indonesian criminal-law research. The application combines a React and TypeScript interface with a FastAPI backend, a FAISS vector index, and PostgreSQL for user accounts and consultation history. When a user submits a question, the system retrieves relevant legal passages and supplies them to the language model as context for its response. The project also includes RAGAS evaluation and model-comparison experiments to assess retrieval and response quality.',
     techStack: ['FastAPI', 'React', 'TypeScript', 'FAISS', 'PostgreSQL', 'Docker'],
@@ -53,7 +53,7 @@ export const projects: Project[] = [
     name: 'AI Interview Training Platform',
     category: 'AI / Full-Stack',
     description:
-      'An interview practice platform that generates contextual questions and processes recorded answers in the background to provide speech transcription, facial-expression analysis, and structured feedback.',
+      'An interview practice platform with contextual questions, recorded-answer transcription, facial-expression analysis, and background feedback processing.',
     detailDescription:
       'I built NobiAI to help users practice interview answers and review feedback after each session. The application combines a React and TypeScript frontend, an Express API, and a separate FastAPI service for speech transcription and facial-expression analysis. Recorded answers are stored and processed in the background, with audio transcribed using Whisper and video analyzed for facial expressions. The results are presented alongside structured feedback, while MongoDB stores session data and Docker Compose connects the application services.',
     techStack: ['React', 'TypeScript', 'Express.js', 'FastAPI', 'MongoDB', 'OpenAI Whisper', 'Docker'],
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     name: 'Real-Time Infrastructure Monitoring',
     category: 'Monitoring / DevOps',
     description:
-      'A monitoring and incident-management console that collects telemetry, evaluates configurable alert rules, and streams dashboard updates through Server-Sent Events.',
+      'An infrastructure monitoring console with telemetry collection, configurable alert rules, live dashboard updates, and incident lifecycle management.',
     detailDescription:
       'I built HeimOps to connect telemetry collection, alert evaluation, and incident management in one application. A containerized Go agent sends telemetry to a Go backend, which stores data in PostgreSQL and evaluates rules using thresholds, time windows, minimum sample counts, and cooldowns. Server-Sent Events stream updates to the React dashboard, where users can review alerts and move incidents through open, acknowledged, and resolved states. The project also includes asynchronous Discord notifications and a Docker Compose setup for running the stack locally.',
     techStack: ['Go', 'React', 'PostgreSQL', 'SSE', 'Docker Compose'],
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     name: 'ML-Based Phishing Detection',
     category: 'Security / Machine Learning',
     description:
-      'A Chrome extension that analyzes website URLs with a machine-learning classifier and displays the prediction through a browser interface backed by a Flask API.',
+      'A Chrome extension that analyzes URL features with a machine-learning classifier and displays phishing predictions through a Flask-backed browser interface.',
     detailDescription:
       'I developed this project to explore how machine learning can help identify potentially suspicious website URLs. It combines URL feature extraction and an XGBoost classifier with a Flask inference API and a React-based Chrome extension interface. The extension sends a URL for analysis and displays the model’s prediction. The repository includes datasets and notebooks for feature extraction and model development, connecting the research workflow to a browser-based application.',
     techStack: ['Flask', 'React', 'XGBoost', 'Chrome Extension'],
@@ -100,7 +100,7 @@ export const projects: Project[] = [
     name: 'NLP Fitness Recommendation System',
     category: 'AI Chatbot',
     description:
-      'A fitness chatbot that uses NLP and a neural-network intent classifier to match user questions with predefined workout recommendations and motivational responses.',
+      'A fitness chatbot that uses NLP and a neural-network intent classifier to provide predefined workout recommendations and motivational responses.',
     detailDescription:
       'I built Raga-Bot to make fitness information accessible through a conversational interface. The system processes user messages and uses a neural-network classifier to identify intents, then selects a predefined response for the recognized category. The application combines a React interface, a Flask backend, and MySQL for application data. This project connects intent-classification experiments with a web application for fitness recommendations and motivational support.',
     techStack: ['React', 'Flask', 'MySQL', 'NLP', 'Neural Network'],
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     name: 'ML-Based Flood Prediction',
     category: 'Research / Machine Learning',
     description:
-      'A machine-learning research project comparing SVM and KNN for rainfall classification and flood-risk assessment in Jakarta using stratified cross-validation.',
+      'A research project comparing SVM and KNN for rainfall classification and flood-risk assessment in Jakarta, evaluated using stratified cross-validation.',
     detailDescription:
       'I worked on this research project to compare SVM and KNN approaches for rainfall classification and flood-risk assessment in Jakarta. The workflow covers data preparation, model training, parameter experiments, and evaluation using Stratified K-Fold Cross Validation. The repository includes the dataset and experiment notebooks, allowing the model-development process to be inspected. The research was presented at SENAMIKA 2024 and received Best Paper and Best Presenter recognition.',
     techStack: ['Python', 'Scikit-learn', 'SVM', 'KNN', 'Machine Learning'],

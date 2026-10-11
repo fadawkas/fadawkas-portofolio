@@ -49,7 +49,7 @@ export function About() {
             className="space-y-12 lg:space-y-16 order-1 lg:order-2"
           >
             {/* Bio */}
-            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-400 text-left leading-relaxed">
+            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-400 text-justify leading-relaxed">
               <p>
                 I’m Fadawkas, an AI Engineer who enjoys turning complex ideas into useful software.
                 My work brings together AI, backend engineering, and full-stack development. I build
