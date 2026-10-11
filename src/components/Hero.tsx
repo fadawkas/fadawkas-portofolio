@@ -189,39 +189,39 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
-          className="mt-16 lg:mt-24 pt-8 border-t border-gray-200 dark:border-white/10"
+          className="mt-16 lg:mt-20 pt-8 lg:pt-10 border-t border-gray-200 dark:border-white/10"
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-10">
             <div>
-              <h3 className="text-sm font-semibold text-notion-black dark:text-white uppercase tracking-wide mb-2">
+              <h3 className="text-base font-semibold text-notion-black dark:text-white mb-2">
                 AI-Powered Systems
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Building AI applications with LLMs, RAG pipelines, and tool-calling agents, with interests spanning workflow automation and agentic voice AI.
+              <p className="max-w-lg text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                Building LLM applications, RAG pipelines, and tool-calling agents, with interests in workflow automation and voice AI.
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-notion-black dark:text-white uppercase tracking-wide mb-2">
+              <h3 className="text-base font-semibold text-notion-black dark:text-white mb-2">
                 Full-Stack Development
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Building end-to-end web applications with Python and JavaScript frameworks, connecting user interfaces, backend APIs, and databases.
+              <p className="max-w-lg text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                Building web applications with Python and JavaScript, connecting interfaces, APIs, and databases.
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-notion-black dark:text-white uppercase tracking-wide mb-2">
-                Production-Ready Infrastructure
+              <h3 className="text-base font-semibold text-notion-black dark:text-white mb-2">
+                Infrastructure &amp; Deployment
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Configuring Docker-based environments and staging setups across frontend, backend, AI services, and external integrations to support testing and deployment readiness.
+              <p className="max-w-lg text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                Configuring Docker environments and staging setups for connected frontend, backend, and AI services.
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-notion-black dark:text-white uppercase tracking-wide mb-2">
-                Research & Innovation
+              <h3 className="text-base font-semibold text-notion-black dark:text-white mb-2">
+                Research &amp; Innovation
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                Best Presenter & Best Paper at SENAMIKA 2024. Published research on ML applications.
+              <p className="max-w-lg text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                Best Presenter and Best Paper at SENAMIKA 2024, with published research on machine learning applications.
               </p>
             </div>
           </div>
