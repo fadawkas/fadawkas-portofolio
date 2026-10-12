@@ -1,19 +1,14 @@
 # Baseline (always on)
 
-Behavioral guardrails for every task, in the spirit of Andrej Karpathy's
-guidelines on common LLM coding pitfalls. They bias toward caution and
-reviewability over raw speed — on genuinely trivial edits, apply judgment rather
-than ceremonially running every rule. The detailed craft lives in the on-demand
-skills in `.opencode/skills/`; this file only holds what must hold even when no
-skill loads.
+Behavioral guardrails for every task. They bias toward caution and reviewability
+over raw speed. Detailed, domain-specific workflows belong in on-demand skills;
+this file contains only rules that apply everywhere.
 
 ## Think before coding
 
-- State assumptions explicitly before acting. If something is unclear, stop and
-  name what's confusing — don't hide it.
-- If multiple interpretations exist, surface them and ask; don't silently pick
-  one.
-- If a simpler approach exists, say so. Push back when warranted.
+- State material assumptions before acting. If a decision would substantially
+  change the result, ask rather than guessing.
+- Prefer the simplest approach that meets the request.
 
 ## Simplicity first
 
@@ -32,47 +27,31 @@ skill loads.
 - Remove only imports/variables/functions your own change made unused. Don't
   delete pre-existing dead code — mention it instead.
 
-## Skill check (mandatory, before any task)
+## Skill check
 
-Before writing or editing any code, list `.opencode/skills/` and scan every
-subfolder name against the task. This step is unconditional — don't first
-decide whether the task "needs" a skill; the skill names/descriptions define
-that, not your judgment in the moment.
+Before non-trivial work, inspect the available skill descriptions and load every
+skill that plausibly applies. This includes skills discovered globally, not only
+in the current project. A truly trivial, unambiguous one-line edit may skip the
+check.
 
-- If a skill folder name plausibly matches the task domain, `view` its
-  SKILL.md before proceeding:
-  - Docker/container/compose/deployment config → `docker-workflow`
-  - Reviewing a PR or diff → `code-review`
-  - A bug report, stack trace, or "why isn't this working" → `debugging`
-  - UI, CSS, component styling, layout → `frontend-ui`
-  - **Any backend work — APIs, services, data models, business logic,
-    databases, server-side architecture — → `senior-engineering`, always,
-    even if the task seems small.** Don't skip this because the fix looks
-    minor; a "senior-engineering" skill exists to catch things that look
-    minor and aren't.
-- Multiple skills can apply to one task — check all that plausibly fit, not
-  just the first match. Backend work often pairs `senior-engineering` with
-  `debugging` or `code-review`.
-- If no skill matches, say so explicitly ("no matching skill, proceeding
-  with baseline only") rather than silently skipping the check.
-- Exception: trivial one-line edits with no ambiguity can skip this — but
-  "trivial" means truly trivial, not "seems fast."
+- Multiple workflows can apply. For example, a backend bug uses both
+  `senior-engineering` and `debugging`; a UI review uses `frontend-ui` and
+  `code-review`.
+- If no skill applies, say so explicitly before proceeding with this baseline.
   
 ## Safety
 
 - Never hardcode secrets, keys, tokens, or credentials; never print `.env`
   contents.
-- Don't delete or overwrite files unless asked (or it's your own now-unneeded
-  file). Don't edit lockfiles/generated files unless dependencies are
-  intentionally changing.
+- Make targeted edits only. Do not blindly replace large files, overwrite user
+  changes, or edit generated files and lockfiles unless the task requires it.
 - Don't add a dependency without explaining why existing code can't solve it.
 - Git: don't commit, push, switch branches, or run destructive commands
-  (`reset`, `clean`, `checkout --`, `rebase`) unless explicitly asked.w
+  (`reset`, `clean`, `checkout --`, `rebase`) unless explicitly asked.
 
 ## Verify
 
-- Define success criteria up front and loop until they're met. Strong criteria
-  let you finish independently; "make it work" doesn't.
-- Verify with the project's existing commands. Never claim a change is verified
-  when it isn't — say what you couldn't run.
+- Define practical success criteria before changing non-trivial work, then verify
+  the relevant behavior with the project's existing tooling.
+- Never claim a change is verified when it isn't; state what could not be run.
 - Summarize which files changed and why.

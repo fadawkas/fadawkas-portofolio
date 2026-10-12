@@ -1,115 +1,62 @@
 ---
 name: frontend-ui
-description: Build or improve frontend UI — pages, dashboards, landing/hero sections, modals, forms, cards, tables, app layouts, components — so it looks intentionally designed and ships clean, non-redundant code. Use when creating new UI, polishing existing UI, or when the user says the UI looks bland, generic, unfinished, "AI-generated," or wants it to feel like a real, premium product. Covers design direction (avoiding templated/AI-slop looks), reuse-first implementation, accessibility, responsiveness, and complete loading/empty/error states.
+description: Build or improve frontend UI, layouts, styling, and components. Use for visual changes, supplied screenshots or reference links, responsive design, or when the user wants a polished, distinctive result rather than generic AI-generated UI. Requires visual inspection of the rendered result when browser tools are available.
 ---
 
 # Frontend UI
 
-Turn functional UI into product-quality UI that feels like a deliberate design
-choice — without bloated or redundant code. Two failure modes to avoid at once:
-UI that looks like a default AI-generated template, and code that reinvents
-primitives the project already has.
+Build product-quality UI that makes deliberate choices for this product, without
+reinventing the project's primitives or producing a generic template.
 
 General code-quality, React, and safety rules live in `senior-engineering`;
 this skill adds the design judgment and UI-specific engineering on top.
 
-## First: existing system or greenfield?
+## Workflow
 
-Always inspect before designing. Read the project's design tokens / Tailwind
-config / theme, existing components, layout patterns, and the pages that already
-look good.
+1. Inspect the existing theme, components, layout patterns, and strong existing
+   screens. Reuse the design system unless a redesign is requested.
+2. If screenshots or reference URLs are supplied, view them before coding.
+   Extract specific decisions about hierarchy, composition, typography, density,
+   imagery, and interaction. A text fetch or accessibility snapshot is not visual
+   inspection. If a reference cannot be viewed, say so rather than inventing
+   observations.
+3. For a substantial new surface without references, study two or three relevant
+   shipped products when browser/search tools are available. Borrow principles,
+   not branding, assets, or whole layouts.
+4. State a compact direction: audience, content hierarchy, one distinctive
+   decision grounded in the subject, and any intended visual references. Revise
+   it if it would fit an unrelated product unchanged.
+5. Implement with existing tokens and components. Include only the states the
+   surface actually has: loading, empty, error, long content, and interactions.
+6. Run the app, capture screenshots, and view them at desktop and mobile sizes.
+   Fix concrete problems, then inspect fresh screenshots. Read
+   `references/visual-validation.md` before this step.
 
-- **There is a design system** (shadcn/ui, a component library, or established
-  tokens): respect it. Reuse existing primitives before building new ones,
-  compose them cleanly, keep Radix/shadcn accessibility intact, use theme tokens
-  rather than one-off colors/spacing, and match the established visual language.
-  Do not introduce a different look unless the user asked for a redesign. This
-  is the common case and the priority.
-- **Greenfield, no system**: you get to set direction. Make distinctive,
-  subject-grounded choices (below), and create the *minimum* set of reusable
-  primitives — don't hand-roll a parallel design system.
+If browser tools, the runtime, or access are unavailable, report the blocked
+visual verification and state how it should be completed.
 
-## Designing to avoid AI slop
+## Design judgment
 
-The point isn't to add more visual effects — it's to make choices that fit *this*
-product. Decoration that doesn't carry meaning is what makes UI read as
-machine-generated.
+Layout should follow real content and user tasks, not a default hero-to-cards
+template. Use precise, realistic copy; do not invent customer claims, metrics,
+or decorative filler.
 
-**Ground every choice in the subject.** Palette, type, and layout should come
-from what the product actually is and who uses it — not a generic "modern SaaS"
-default. If the brief doesn't pin the subject down, pin it yourself and say so.
+- Make typography, spacing, imagery, and hierarchy serve the product and its
+  audience. Let structural labels, dividers, and motion communicate something
+  true rather than decorate.
+- Spend visual emphasis deliberately. One memorable, subject-appropriate move is
+  stronger than competing gradients, glows, cards, or animation.
+- Do not reach reflexively for cream-and-serif, dark-and-neon, gradient blobs,
+  glass panels, numbered eyebrows, or identical rounded cards. They are valid
+  only when the brief or existing system makes them an intentional choice.
+- Preserve familiar controls and readable content; distinctiveness must not harm
+  usability.
 
-**Avoid the current AI-default looks.** Generated UI clusters around a few tells;
-don't reach for these unless the brief specifically calls for one:
+## Implementation floor
 
-- Cream/off-white background + high-contrast serif headline + terracotta accent.
-- Near-black background with a single acid-green or vermilion accent.
-- The "big number + tiny label + gradient blob" hero on a blank background.
-- Reflexively sprinkling gradients, glows, glass panels, and animated blobs to
-  fill empty space.
-- Numbered eyebrows (01 / 02 / 03) on content that isn't actually a sequence.
-
-Structure should encode something true (a real sequence, a real hierarchy), not
-decorate.
-
-**Spend boldness in one place.** Pick one signature element — the thing the page
-is remembered by — and keep everything around it quiet and disciplined. Cut any
-decoration that doesn't serve the brief. Restraint reads as premium; clutter
-reads as generated. (Chanel's rule: before leaving, remove one accessory.)
-
-**Typography carries personality.** Set a clear type scale with intentional
-weights and spacing. Strong headings, readable body, muted supporting text. The
-type treatment should be a deliberate part of the design, not a neutral default.
-
-**Motion is deliberate, not ambient.** A considered page-load or scroll reveal,
-or restrained hover micro-interactions, beats scattered effects. Over-animation
-is itself an AI-slop tell. Respect `prefers-reduced-motion`.
-
-**Plan, then critique, then build.** Sketch a compact direction (palette as 4–6
-named hex values, 2 type roles, a layout concept, one signature element). Before
-coding, ask: "would I produce this exact thing for any similar prompt?" If yes,
-change the part that's generic and say why. Critique again after building.
-
-## Optimal, non-redundant code
-
-Premium UI with bloated code is still a failure. Keep it lean:
-
-- **Reuse before you create.** Check for an existing component/variant before
-  writing a new one. Don't duplicate a button, card, or input that already
-  exists.
-- **Tokens, not magic values.** Use theme/Tailwind tokens for color, spacing,
-  radius, and shadow. Avoid random one-off hex values and arbitrary pixel
-  values. Keep responsive utilities intentional, not copy-pasted.
-- **No useless wrappers.** Don't wrap a simple component in an extra abstraction,
-  and don't add a one-off abstraction with a single caller.
-- **Watch CSS specificity.** Don't generate selectors that cancel each other out
-  (a type-based `.section` fighting an element-based `.cta` over the same
-  margin). Keep spacing logic in one place per section.
-- **Derive, don't store.** Compute view values instead of holding redundant
-  state; keep `useEffect` out of simple derived state. Memoize only for a real
-  reason.
-
-## Always handle real states
-
-UI must survive real data. Before finishing, make sure the page works with: real
-data, **empty** data, **loading**, **error**, and **long text**. Each of these
-has standard patterns — see `references/ui-checklists.md` for the per-component
-detail (forms, modals, tables/dashboards, hero, empty/loading/error states).
-
-## Quality floor (non-negotiable)
-
-- Responsive down to mobile; layout doesn't break on tablet/desktop.
-- Visible keyboard focus; hover/focus/disabled states present.
-- One obvious primary action per view; secondary actions visually quieter.
-- Accessible names/labels on inputs and controls.
-- Dark mode honored if the project supports it.
-- Don't show raw technical errors to end users (developer tools excepted).
-
-## Self-review before finishing
-
-Ask, and keep going if any answer is no: Does it look better than before? Is the
-primary action obvious? Could it pass as a shipped product rather than a
-wireframe? Is spacing consistent and the type scale clear? Is mobile good? Are
-empty/loading/error states handled? Did the design make a real choice for this
-subject, or fall back to a default? Did I reuse existing components and tokens
-instead of duplicating them?
+- Reuse existing components and tokens before creating new ones. Keep CSS
+  specificity and responsive rules straightforward.
+- Make keyboard focus, labels, disabled states, and user-triggered feedback
+  visible. Respect reduced motion and the project's dark-mode behavior.
+- Use one obvious primary action where the task calls for one. Never expose raw
+  technical errors to end users.

@@ -17,7 +17,7 @@ export function Achievements() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
@@ -36,7 +36,7 @@ export function Achievements() {
                 key={achievement.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
                 className="p-6 rounded-xl text-center
@@ -55,7 +55,7 @@ export function Achievements() {
                   {achievement.description}
                 </p>
                 {achievement.year && (
-                  <span className="inline-block mt-3 px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400">
+                  <span className="inline-block mt-3 px-3 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
                     {achievement.year}
                   </span>
                 )}

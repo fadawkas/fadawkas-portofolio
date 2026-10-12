@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { projects, Project } from '../data/projects';
 import { ProjectCard } from './ProjectCard';
@@ -8,17 +8,18 @@ import { ScrollHeading } from './motion/ScrollHeading';
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
 
-  const handleViewDetails = (project: Project) => {
+  const handleViewDetails = useCallback((project: Project) => {
+    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setSelectedProject(project);
     setIsDialogOpen(true);
-  };
+  }, []);
 
-  const handleCloseDialog = () => {
+  const handleCloseDialog = useCallback(() => {
     setIsDialogOpen(false);
     setTimeout(() => setSelectedProject(null), 200);
-  };
+  }, []);
 
   return (
     <section
@@ -30,7 +31,7 @@ export function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
           className="mb-14"
         >
@@ -38,7 +39,7 @@ export function Projects() {
           <h2 className="text-3xl sm:text-4xl font-bold text-notion-black dark:text-white mb-3">
             Featured Work
           </h2>
-          <p className="text-base text-gray-500 dark:text-gray-400 max-w-2xl text-justify leading-loose">
+          <p className="text-base text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
             A curated set of projects across full-stack development, applied technology, and AI - 
             blending technical depth with practical, real-world solutions.
           </p>
@@ -52,9 +53,6 @@ export function Projects() {
               project={project}
               index={index}
               onViewDetails={() => handleViewDetails(project)}
-              isAnyHovered={hoveredId !== null}
-              isThisHovered={hoveredId === project.id}
-              onHover={(id) => setHoveredId(id)}
             />
           ))}
         </div>
@@ -64,6 +62,7 @@ export function Projects() {
         project={selectedProject}
         isOpen={isDialogOpen}
         onClose={handleCloseDialog}
+        openerRef={openerRef}
       />
     </section>
   );

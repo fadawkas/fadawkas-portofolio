@@ -10,13 +10,13 @@ the symptom disappears, and do not silence it.
 
 ## Process
 
-1. Read the error message carefully and reason about (or reproduce) the failure.
+1. Read the symptom carefully and reproduce it when feasible.
 2. Identify the failing file, function, component, route, or command.
 3. Inspect the smallest relevant area first; trace the data flow.
 4. Find the root cause — not just the surface symptom.
 5. Patch the smallest safe area.
-6. Check nearby code for the same mistake.
-7. Verify with the most relevant existing command.
+6. Check nearby code for the same mistake when the cause could repeat.
+7. Verify the original failure no longer occurs and relevant checks still pass.
 
 ## Do not
 
@@ -33,7 +33,8 @@ covered by a test where practical.
 
 When the bug is in the UI: component state, conditional rendering, z-index and
 stacking context, CSS positioning, responsive classes, parent container size,
-overflow, event handlers, disabled/loading states.
+overflow, event handlers, disabled/loading states. For visual defects, reproduce
+and inspect the rendered result in a browser when available.
 
 When the bug is in the backend: request validation, auth/permission middleware,
 controller/service boundaries, query shape, null results, async/await handling,

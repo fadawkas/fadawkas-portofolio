@@ -1,60 +1,21 @@
-import { useRef } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Github, ArrowRight } from 'lucide-react';
 import { Project } from '../data/projects';
 import { ProjectCarousel } from './ProjectCarousel';
-import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface ProjectCardProps {
   project: Project;
   index: number;
   onViewDetails: () => void;
-  isAnyHovered?: boolean;
-  isThisHovered?: boolean;
-  onHover?: (id: string | null) => void;
 }
 
-export function ProjectCard({ project, index, onViewDetails, isAnyHovered, isThisHovered, onHover }: ProjectCardProps) {
-  const reduced = useReducedMotion();
-  const cardRef = useRef<HTMLElement>(null);
-
-  const rotateX = useSpring(0, { stiffness: 300, damping: 25 });
-  const rotateY = useSpring(0, { stiffness: 300, damping: 25 });
-
-  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (reduced) return;
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    rotateY.set(px * 12);
-    rotateX.set(-py * 12);
-  };
-
-  const onMouseLeave = () => {
-    rotateX.set(0);
-    rotateY.set(0);
-    onHover?.(null);
-  };
-
-  const dimmed = isAnyHovered && !isThisHovered;
-
+export function ProjectCard({ project, index, onViewDetails }: ProjectCardProps) {
   return (
     <motion.article
-      ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      animate={{
-        opacity: dimmed ? 0.5 : 1,
-        filter: dimmed ? 'grayscale(0.4)' : 'grayscale(0)',
-      }}
-      style={reduced ? {} : { rotateX, rotateY, transformPerspective: 1000, transformOrigin: 'center' }}
-      onMouseMove={onMouseMove}
-      onMouseEnter={() => onHover?.(project.id)}
-      onMouseLeave={onMouseLeave}
       className="group flex flex-col overflow-hidden rounded-xl
                  bg-white dark:bg-dark-card
                  border border-[#e9e9e7] dark:border-dark-border
@@ -106,9 +67,14 @@ export function ProjectCard({ project, index, onViewDetails, isAnyHovered, isThi
         </div>
 
         {/* Highlight */}
-        <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed italic">
-          {project.highlight}
-        </p>
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300 mb-1">
+            {project.highlightType}
+          </p>
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 leading-relaxed">
+            {project.highlight}
+          </p>
+        </div>
 
         {/* Action row */}
         <div className="flex items-center gap-3 pt-1 mt-auto">
@@ -116,19 +82,18 @@ export function ProjectCard({ project, index, onViewDetails, isAnyHovered, isThi
             href={project.links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold
-                       bg-notion-black hover:bg-gray-800 text-white rounded-lg
-                       transition-colors duration-200"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium
+                       border border-gray-300 dark:border-white/20 text-gray-700 dark:text-gray-200 rounded-lg
+                       hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-200"
           >
             <Github className="w-3.5 h-3.5" />
             GitHub
           </a>
           <button
             onClick={onViewDetails}
-            className="inline-flex items-center gap-1 text-sm font-medium
-                       text-gray-500 dark:text-gray-400
-                       hover:text-notion-black dark:hover:text-white
-                       transition-colors duration-200 cursor-pointer group/btn"
+            className="inline-flex items-center gap-1 px-3.5 py-2 text-sm font-semibold
+                       bg-notion-black text-white dark:bg-white dark:text-gray-900 rounded-lg
+                       hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 cursor-pointer group/btn"
           >
             Read more
             <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform duration-150" />

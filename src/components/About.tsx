@@ -11,7 +11,7 @@ export function About() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
           className="mb-16 lg:mb-24"
         >
@@ -25,31 +25,33 @@ export function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 xl:gap-28 items-start">
           {/* Photo */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.15 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5 }}
-            className="order-2 lg:order-1"
+            className="order-2 lg:order-1 overflow-hidden"
           >
             <div className="relative w-full max-w-sm mx-auto lg:mx-0 lg:max-w-md aspect-[4/5] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm">
               <img
                 src={fadawkasImg}
                 alt="Muhammad Fadawkas Oemarki"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </motion.div>
 
           {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.15 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-12 lg:space-y-16 order-1 lg:order-2"
+            className="space-y-12 lg:space-y-16 order-1 lg:order-2 min-w-0 overflow-hidden"
           >
             {/* Bio */}
-            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-400 text-justify leading-relaxed">
+            <div className="space-y-6 lg:space-y-8 text-gray-600 dark:text-gray-300 leading-relaxed">
               <p>
                 I’m Fadawkas, an AI Engineer who enjoys turning complex ideas into useful software.
                 My work brings together AI, backend engineering, and full-stack development. I build

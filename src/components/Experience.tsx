@@ -24,7 +24,7 @@ export function Experience() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
@@ -62,7 +62,7 @@ export function Experience() {
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
-                    viewport={{ once: false, amount: 0.15 }}
+                    viewport={{ once: true, amount: 0.15 }}
                     transition={{ delay: index * 0.1 + 0.2 }}
                     className="w-3 h-3 rounded-full bg-notion-black dark:bg-white"
                   />

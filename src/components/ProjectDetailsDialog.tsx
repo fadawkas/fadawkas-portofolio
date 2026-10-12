@@ -1,13 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Github, ExternalLink, Code2, Sparkles, Link2 } from 'lucide-react';
 import { Project } from '../data/projects';
 import { ProjectCarousel } from './ProjectCarousel';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface ProjectDetailsDialogProps {
   project: Project | null;
   isOpen: boolean;
   onClose: () => void;
+  openerRef: React.RefObject<HTMLElement | null>;
 }
 
 function getLenis() {
@@ -26,31 +29,61 @@ function SectionHeader({ icon: Icon, label }: { icon: React.ElementType; label: 
   );
 }
 
-export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetailsDialogProps) {
+export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: ProjectDetailsDialogProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const reduced = useReducedMotion();
+
   useEffect(() => {
     if (!isOpen) return;
 
     const lenis = getLenis();
     const previousOverflow = document.body.style.overflow;
+    const root = document.getElementById('root');
+    const previousInert = root?.inert ?? false;
+    const opener = openerRef.current;
 
     document.body.style.overflow = 'hidden';
+    if (root) root.inert = true;
     lenis?.stop();
+    closeButtonRef.current?.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusable = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener('keydown', onKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow || 'unset';
+      if (root) root.inert = previousInert;
       lenis?.start();
       window.removeEventListener('keydown', onKeyDown);
+      requestAnimationFrame(() => opener?.focus());
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, openerRef]);
 
   if (!project) return null;
 
-  return (
+  return createPortal((
     <AnimatePresence mode="wait">
       {isOpen && (
         <>
@@ -59,7 +92,7 @@ export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetail
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: reduced ? 0 : 0.2 }}
             onClick={onClose}
             className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md"
           />
@@ -69,12 +102,17 @@ export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetail
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 40, filter: 'blur(4px)' }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: reduced ? 0 : 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pointer-events-none overflow-hidden"
           >
             <div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-dialog-title"
+              tabIndex={-1}
               data-lenis-prevent
-              className="relative w-full max-w-4xl max-h-[90vh] min-h-0 overflow-y-auto overscroll-contain
+              className="relative w-full max-w-4xl max-h-[90dvh] min-h-0 overflow-y-auto overscroll-contain
                          bg-white dark:bg-dark-card
                          rounded-3xl
                          shadow-[0_25px_70px_-20px_rgba(0,0,0,0.45)]
@@ -87,10 +125,25 @@ export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetail
                          dark:[&::-webkit-scrollbar-thumb]:bg-white/10"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Sticky Title */}
+              <div className="sticky top-0 z-30 flex items-center gap-4 px-6 sm:px-8 py-4 bg-white/95 dark:bg-dark-card/95 backdrop-blur-md border-b border-light-border dark:border-dark-border">
+                <h2 id="project-dialog-title" className="flex-1 text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  {project.name}
+                </h2>
+                <button
+                  ref={closeButtonRef}
+                  onClick={onClose}
+                  aria-label="Close dialog"
+                  className="shrink-0 p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
               {/* Image Carousel */}
               <div className="relative">
                 <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-black/30 to-transparent" />
-                <ProjectCarousel images={project.images} projectName={project.name} />
+                <ProjectCarousel images={project.images} projectName={project.name} isDialog />
 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 z-20">
@@ -104,45 +157,25 @@ export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetail
                   </span>
                 </div>
 
-                {/* Close Button */}
-                <button
-                  onClick={onClose}
-                  aria-label="Close dialog"
-                  className="absolute top-4 right-4 z-20 p-2 rounded-full
-                             bg-white/80 dark:bg-black/60 backdrop-blur-md
-                             text-gray-700 dark:text-gray-200
-                             hover:bg-white dark:hover:bg-black/80
-                             border border-white/30 dark:border-white/10
-                             transition-all duration-200
-                             hover:scale-105 active:scale-95
-                             shadow-lg"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Sticky Title */}
-              <div
-                className="sticky top-0 z-20 px-6 sm:px-8 py-4
-                           bg-white/85 dark:bg-dark-card/85 backdrop-blur-md
-                           border-b border-light-border dark:border-dark-border"
-              >
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white pr-10">
-                  {project.name}
-                </h2>
               </div>
 
               {/* Content */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="p-6 sm:p-8 space-y-8"
               >
-                {/* Full Description */}
-                <p className="text-base text-gray-600 dark:text-gray-300 text-justify leading-loose">
-                  {project.detailDescription}
-                </p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <section className="space-y-3">
+                    <SectionHeader icon={Sparkles} label="Problem" />
+                    <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed">{project.problem}</p>
+                  </section>
+                  <section className="space-y-3">
+                    <SectionHeader icon={Code2} label="Engineering approach" />
+                    <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed">{project.engineering}</p>
+                  </section>
+                </div>
 
                 {/* Technologies + Key Result */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -164,7 +197,7 @@ export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetail
                   </div>
 
                   <div className="space-y-3">
-                    <SectionHeader icon={Sparkles} label="Key Result" />
+                    <SectionHeader icon={Sparkles} label={project.highlightType} />
                     <div
                       className="flex gap-3 p-4 rounded-xl
                                  bg-[#f1f1f0]/80 dark:bg-white/[0.04]
@@ -222,5 +255,5 @@ export function ProjectDetailsDialog({ project, isOpen, onClose }: ProjectDetail
         </>
       )}
     </AnimatePresence>
-  );
+  ), document.body);
 }

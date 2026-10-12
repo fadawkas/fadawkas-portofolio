@@ -5,11 +5,8 @@ description: Review, refactor, clean up, or improve the quality of existing code
 
 # Code Review
 
-Review and improve existing code the way a trusted senior reviewer would: catch
-what actually matters, suggest the smallest high-impact fixes, and preserve
-behavior unless asked to change it. The clean-code and safety standards in the
-`senior-engineering` skill define "good"; this skill is how to evaluate against
-them and act.
+Review existing code for material risks and the smallest high-impact
+improvements. Preserve behavior unless the request asks to change it.
 
 ## Review priorities
 
@@ -27,8 +24,7 @@ Work in this order — do not polish style before correctness is settled:
 - Hidden bugs, broken edge cases, unhandled null/undefined.
 - Race conditions and incorrect async handling.
 - Overcomplicated or duplicated logic; unnecessary state or dependencies.
-- Functions doing too much; components mixing UI with business logic; routes
-  doing too much.
+- Unclear boundaries or duplication that makes behavior unsafe to change.
 - Unsafe input handling and security issues.
 - Poor naming.
 - Performance bottlenecks that actually matter (not hypothetical ones).
@@ -39,17 +35,13 @@ Work in this order — do not polish style before correctness is settled:
   APIs.
 - Make small, safe, reviewable improvements. Don't rewrite whole files unless
   the current structure genuinely blocks the requested improvement.
-- Extract only when it makes the code easier to understand. Never add an
-  abstraction with a single caller.
+- Extract only when it improves a concrete boundary, clarity, or testability.
 
 ## Output
 
-When reviewing, structure findings as:
+When reviewing without editing, report only actionable findings, ordered by
+severity. Each finding includes its location, impact, and evidence. If there are
+no findings, say so and name remaining test gaps.
 
-1. Critical issues (correctness, safety, security)
-2. Suggested improvements (clarity, structure, duplication)
-3. Optional polish (naming, style)
-4. A minimal patch plan
-
-When editing, implement the safest high-impact fixes first, and verify with the
-project's existing checks.
+When asked to edit, implement the approved or clearly requested fixes only, then
+verify the affected behavior with the project's existing checks.

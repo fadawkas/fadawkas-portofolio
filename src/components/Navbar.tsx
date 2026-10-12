@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Menu, X, Download } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import type Lenis from 'lenis';
 
@@ -20,9 +20,15 @@ const navLinks = [
 export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
+    if (document.activeElement instanceof HTMLElement && document.querySelector('header')?.contains(document.activeElement)) {
+      setHidden(false);
+      return;
+    }
     const prev = scrollY.getPrevious() ?? 0;
     if (latest > prev && latest > 80) {
       setHidden(true);
@@ -33,11 +39,28 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
 
   // Close mobile menu on hide
   useEffect(() => {
+    if (menuPanelRef.current) menuPanelRef.current.inert = !isMenuOpen;
+  }, [isMenuOpen]);
+
+  useEffect(() => {
     if (hidden) setIsMenuOpen(false);
   }, [hidden]);
 
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
+
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
+    if (isMenuOpen) menuButtonRef.current?.focus();
     const lenis = (window as unknown as Record<string, unknown>).__lenis as Lenis | undefined;
     if (lenis) {
       lenis.scrollTo(href);
@@ -50,6 +73,7 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
   return (
     <motion.header
       animate={{ y: hidden ? '-100%' : '0%' }}
+      onFocusCapture={() => setHidden(false)}
       transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="fixed top-0 left-0 right-0 z-50 
                  bg-white/80 dark:bg-dark-bg/80 
@@ -69,6 +93,7 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                 <a
                   key={link.href}
                   href={link.href}
+                  aria-current={isActive ? 'location' : undefined}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(link.href);
@@ -112,8 +137,11 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             <button
+              ref={menuButtonRef}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
               className="p-2 rounded-lg transition-colors duration-200
                          hover:bg-gray-100 dark:hover:bg-white/10"
             >
@@ -128,15 +156,14 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
       </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="md:hidden bg-white dark:bg-dark-card
-                       border-t border-gray-200 dark:border-white/10"
+      <motion.div
+            ref={menuPanelRef}
+            id="mobile-navigation"
+            initial={false}
+            animate={{ opacity: isMenuOpen ? 1 : 0, height: isMenuOpen ? 'auto' : 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            aria-hidden={!isMenuOpen}
+            className="md:hidden overflow-hidden bg-white dark:bg-dark-card border-t border-gray-200 dark:border-white/10"
           >
             <div className="px-4 py-4 space-y-4">
               {navLinks.map((link) => {
@@ -145,6 +172,7 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                   <a
                     key={link.href}
                     href={link.href}
+                    aria-current={isActive ? 'location' : undefined}
                     onClick={(e) => {
                       e.preventDefault();
                       handleNavClick(link.href);
@@ -176,8 +204,6 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
               </a>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
     </motion.header>
   );
 }

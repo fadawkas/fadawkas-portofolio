@@ -1,16 +1,19 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface ProjectCarouselProps {
   images: string[];
   projectName: string;
+  isDialog?: boolean;
 }
 
-export function ProjectCarousel({ images, projectName }: ProjectCarouselProps) {
+export function ProjectCarousel({ images, projectName, isDialog = false }: ProjectCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const reduced = useReducedMotion();
 
   const nextImage = useCallback(() => {
     setDirection(1);
@@ -27,32 +30,21 @@ export function ProjectCarousel({ images, projectName }: ProjectCarouselProps) {
     setCurrentIndex(index);
   };
 
-  // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientX);
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStart === null) return;
-    
-    const diff = touchStart - e.changedTouches[0].clientX;
-    const threshold = 50;
-    
-    if (Math.abs(diff) > threshold) {
-      if (diff > 0) {
-        nextImage();
-      } else {
-        prevImage();
-      }
-    }
-    setTouchStart(null);
-  };
+    if (!touchStart.current) return;
 
-  // Auto-advance every 5 seconds
-  useEffect(() => {
-    const timer = setInterval(nextImage, 5000);
-    return () => clearInterval(timer);
-  }, [nextImage]);
+    const diffX = touchStart.current.x - e.changedTouches[0].clientX;
+    const diffY = touchStart.current.y - e.changedTouches[0].clientY;
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) nextImage();
+      else prevImage();
+    }
+    touchStart.current = null;
+  };
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -71,7 +63,9 @@ export function ProjectCarousel({ images, projectName }: ProjectCarouselProps) {
 
   return (
     <div
-      className="relative aspect-video overflow-hidden rounded-t-xl bg-gray-100 dark:bg-gray-900"
+      role="region"
+      aria-label={`${projectName} screenshots`}
+      className={`group relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900 ${isDialog ? '' : 'rounded-t-xl'}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -81,72 +75,56 @@ export function ProjectCarousel({ images, projectName }: ProjectCarouselProps) {
           key={currentIndex}
           src={images[currentIndex]}
           alt={`${projectName} screenshot ${currentIndex + 1}`}
+          loading={isDialog ? 'eager' : 'lazy'}
+          decoding="async"
           custom={direction}
           variants={slideVariants}
-          initial="enter"
+          initial={reduced ? false : 'enter'}
           animate="center"
           exit="exit"
           transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 },
+            x: { type: 'spring', stiffness: 300, damping: 30, duration: reduced ? 0 : undefined },
+            opacity: { duration: reduced ? 0 : 0.2 },
           }}
           className="absolute inset-0 w-full h-full object-cover"
         />
       </AnimatePresence>
 
-      {/* Navigation Arrows - appear on hover */}
-      <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+      {images.length > 1 && <div className={`absolute inset-0 flex items-center justify-between p-3 transition-opacity duration-200 ${isDialog ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100'} max-md:opacity-100`}>
         <button
           onClick={prevImage}
-          aria-label="Previous image"
-          className="p-2 rounded-full bg-black/50 text-white backdrop-blur-sm
+          aria-label={`Previous ${projectName} screenshot`}
+          className="min-w-11 min-h-11 flex items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm
                      hover:bg-black/70 transition-colors duration-200"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={nextImage}
-          aria-label="Next image"
-          className="p-2 rounded-full bg-black/50 text-white backdrop-blur-sm
+          aria-label={`Next ${projectName} screenshot`}
+          className="min-w-11 min-h-11 flex items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm
                      hover:bg-black/70 transition-colors duration-200"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
-      </div>
-
-      {/* Always visible arrows for mobile */}
-      <div className="absolute inset-0 flex items-center justify-between p-4 md:hidden">
-        <button
-          onClick={prevImage}
-          aria-label="Previous image"
-          className="p-2 rounded-full bg-black/50 text-white backdrop-blur-sm"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={nextImage}
-          aria-label="Next image"
-          className="p-2 rounded-full bg-black/50 text-white backdrop-blur-sm"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
+      </div>}
 
       {/* Dot Indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      {images.length > 1 && <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 rounded-full bg-black/45 px-1">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => goToImage(index)}
-            aria-label={`Go to image ${index + 1}`}
-            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+            aria-label={`Show ${projectName} screenshot ${index + 1}`}
+            aria-pressed={index === currentIndex}
+            className={`min-w-8 min-h-8 flex items-center justify-center rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${
               index === currentIndex
-                ? 'bg-white w-4'
-                : 'bg-white/50 hover:bg-white/70'
+                ? 'text-white'
+                : 'text-white/70 hover:text-white'
             }`}
-          />
+          ><span aria-hidden="true" className={`h-2 rounded-full ${index === currentIndex ? 'w-4 bg-white' : 'w-2 bg-current'}`} /></button>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }

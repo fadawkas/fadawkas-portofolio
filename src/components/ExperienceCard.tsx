@@ -8,13 +8,11 @@ interface ExperienceCardProps {
 }
 
 export function ExperienceCard({ experience, index }: ExperienceCardProps) {
-  const isEven = index % 2 === 0;
-
   return (
     <motion.div
-      initial={{ opacity: 0, x: isEven ? -30 : 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: false, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
       className="relative"

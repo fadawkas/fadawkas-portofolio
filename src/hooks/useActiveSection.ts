@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
 export function useActiveSection(sectionIds: string[]): string {
-  const [activeSection, setActiveSection] = useState<string>(sectionIds[0] ?? '');
+  const [activeSection, setActiveSection] = useState<string>('');
+  const idsKey = sectionIds.join(',');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -15,17 +16,22 @@ export function useActiveSection(sectionIds: string[]): string {
       { rootMargin: '-45% 0px -45% 0px' }
     );
 
-    sectionIds.forEach((id) => {
+    idsKey.split(',').filter(Boolean).forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
         observer.observe(element);
       }
     });
 
+    const onScroll = () => {
+      if (window.scrollY < 80) setActiveSection('');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
     };
-  }, [sectionIds]);
+  }, [idsKey]);
 
   return activeSection;
 }

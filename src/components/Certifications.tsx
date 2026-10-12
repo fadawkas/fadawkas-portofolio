@@ -11,7 +11,7 @@ export function Certifications() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
           className="mb-12"
         >
@@ -28,7 +28,7 @@ export function Certifications() {
                 key={cert.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -2 }}
                 className="flex items-start gap-4 p-5 rounded-xl
@@ -41,7 +41,7 @@ export function Certifications() {
                   <FileCheck className="w-5 h-5 text-notion-black dark:text-white" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-semibold text-notion-black dark:text-white text-sm mb-1 truncate">
+                  <h3 className="font-semibold text-notion-black dark:text-white text-sm mb-1 break-words">
                     {cert.title}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">

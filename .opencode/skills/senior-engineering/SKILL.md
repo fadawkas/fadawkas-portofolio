@@ -1,6 +1,6 @@
 ---
 name: senior-engineering
-description: Baseline behavior for writing, editing, or extending code in an existing project. Use whenever implementing a feature, changing existing files, or adding code of any kind — covers thinking before editing, making surgical changes that match project conventions, clean/optimal TypeScript/React/backend code, and file/git/dependency safety. Apply this on essentially every coding task unless the task is purely UI design (frontend-ui), reviewing existing code (code-review), or fixing a bug (debugging).
+description: Engineering workflow for implementing or changing application code. Use for features, backend work, data models, APIs, business logic, or non-visual code changes; combine it with debugging, code-review, or frontend-ui when those workflows also apply.
 ---
 
 # Senior Engineering
@@ -29,7 +29,8 @@ editing rather than hiding it.
 - Do not refactor unrelated code, reformat untouched lines, or rename things
   that did not need renaming.
 - Do not add features, options, or abstractions the user did not ask for.
-- Do not introduce an abstraction that has only one caller.
+- Extract only for a concrete clarity, boundary, or testability benefit; do not
+  extract merely for imagined reuse.
 - Keep files reasonably small, but never split a file just to look
   architectural.
 
@@ -41,9 +42,8 @@ fast — and only optimize a bottleneck that actually matters.
 - Prefer explicit, readable code over clever code. Early returns over deep
   nesting. Focused functions.
 - Remove real duplication, not merely similar-looking code.
-- Keep business logic separate from UI and infrastructure. Keep side effects
-  obvious. Avoid hidden magic and global mutable state unless the project
-  already works that way.
+- Follow the project's existing boundaries. Keep complex logic and side effects
+  understandable; do not add ceremonial layers to simple code.
 - Use stable, descriptive names (`isLoading`, `selectedUserId`,
   `formattedDate`). Avoid `data`, `item`, `temp`, `stuff` outside tiny scopes.
 
@@ -68,12 +68,19 @@ fast — and only optimize a bottleneck that actually matters.
 
 ### Backend
 
-- Thin controllers/routes; business logic in services.
-- Validate external input before use. Keep response shapes consistent and handle
-  errors explicitly.
+- Follow existing route, service, and data-access boundaries. Keep handlers
+  focused when complexity warrants it.
+- Validate external input; preserve established response shapes and error
+  handling.
+- Check authorization separately from authentication, including ownership or
+  tenant scope where applicable.
+- For related writes, follow existing transaction and constraint conventions;
+  consider retries, duplicate delivery, and partial failure for side effects.
+- Preserve pagination and query limits. Avoid database calls in loops when
+  batching is available.
 - Never leak secrets, tokens, stack traces, or internals to users.
-- Avoid unbounded queries (paginate/limit) and database calls inside loops when
-  batching is possible.
+- For schema or migration changes, inspect the project's migration conventions
+  and account for deployed data and affected queries.
 
 ## Safety
 
@@ -93,10 +100,10 @@ fast — and only optimize a bottleneck that actually matters.
 ## Verify, then summarize
 
 Define a practical verification path using commands that already exist in the
-project (typecheck, lint, unit test, build, manual UI/API check). Don't invent
-new commands when established ones exist. If checks can't be run, say so plainly
-and state what should be run manually — never claim a change is verified when it
-isn't.
+project. Exercise changed behavior at its relevant boundary (UI, API, job, or
+database), including its important failure path; a passing build alone is not
+runtime verification. If checks cannot run, say so plainly and state what should
+be run manually.
 
 When blocked, explain the blocker, provide the best partial implementation, and
 say what's still needed. Before finishing, summarize which files changed and why.
