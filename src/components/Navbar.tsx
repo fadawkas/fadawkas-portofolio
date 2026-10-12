@@ -59,22 +59,6 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16">
-          {/* Logo */}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="inline-flex items-center justify-center w-9 h-9 rounded-lg
-                       border border-gray-300 dark:border-white/20
-                       text-sm font-bold text-notion-black dark:text-white
-                       hover:bg-gray-100 dark:hover:bg-white/10
-                       transition-colors duration-200"
-          >
-            FO
-          </a>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8 justify-self-center">
             {navLinks.map((link) => {
