@@ -59,6 +59,8 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16">
+          <div aria-hidden="true" className="w-9 h-9" />
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8 justify-self-center">
             {navLinks.map((link) => {
