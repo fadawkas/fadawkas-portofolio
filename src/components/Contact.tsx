@@ -1,138 +1,46 @@
-import { motion } from 'framer-motion';
-import { Mail, MessageCircle, Linkedin, Github, Download, ArrowRight } from 'lucide-react';
+import { Mail, MessageCircle, Linkedin, Github, Download, ArrowUpRight } from 'lucide-react';
 import { contactItems } from '../data/contact';
-import { ScrollHeading } from './motion/ScrollHeading';
 
-const iconMap: Record<string, React.ElementType> = {
-  email: Mail,
-  linkedin: Linkedin,
-  github: Github,
-  cv: Download,
-};
+const iconMap = { email: Mail, linkedin: Linkedin, github: Github, cv: Download };
 
 export function Contact() {
   return (
-    <section
-      id="contact"
-      className="py-20 lg:py-32 bg-gray-50/50 dark:bg-white/[0.02]"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5 }}
-            className="mb-12"
-          >
-            <ScrollHeading label="Contact" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-notion-black dark:text-white mb-4">
-              Let's build something{' '}
-              <span className="text-gray-500">together.</span>
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-              I'm open to AI engineering, backend engineering, full-stack, and
-              production AI workflow opportunities.
-            </p>
-          </motion.div>
-
-          {/* Contact Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-          >
-            {contactItems.map((item, index) => {
-              const Icon = iconMap[item.icon];
-              const isCv = item.type === 'CV';
-              const isEmail = item.type === 'Email';
-
-              return (
-                <motion.a
-                  key={item.type}
-                  href={item.url}
-                  download={isCv}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-                  className={`group flex items-center gap-4 p-4 rounded-xl
-                             border transition-all duration-300 ${
-                                isEmail
-                                  ? 'bg-gray-900 border-transparent text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200'
-                                  : 'bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20'
-                             }`}
-                >
-                  <div
-                    className={`p-2.5 rounded-lg ${
-                      isEmail
-                        ? 'bg-white/20 dark:bg-gray-900/10'
-                        : isCv
-                        ? 'bg-gray-100 dark:bg-white/10 group-hover:bg-gray-200 dark:group-hover:bg-white/20 transition-colors'
-                        : 'bg-gray-100 dark:bg-white/10 group-hover:bg-gray-200 dark:group-hover:bg-white/20 transition-colors'
-                    }`}
-                  >
-                    <Icon
-                      className={`w-5 h-5 ${
-                          isEmail
-                            ? 'text-white dark:text-gray-900'
-                            : isCv
-                          ? 'text-notion-black dark:text-white'
-                          : 'text-notion-black dark:text-white'
-                      }`}
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div
-                      className={`text-xs mb-0.5 ${
-                        isEmail ? 'text-white/80 dark:text-gray-700' : 'text-gray-600 dark:text-gray-300'
-                      }`}
-                    >
-                      {item.type}
-                    </div>
-                    <div
-                      className={`font-medium ${
-                        isEmail ? 'text-white dark:text-gray-900 break-all' : 'text-notion-black dark:text-white'
-                      }`}
-                    >
-                      {item.label}
-                    </div>
-                  </div>
-                  {!isCv && !isEmail && (
-                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-notion-black dark:group-hover:text-white transition-colors flex-shrink-0" />
-                  )}
-                </motion.a>
-              );
-            })}
-          </motion.div>
-
-          {/* Email CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12"
-          >
-            <p className="text-gray-600 dark:text-gray-300 mb-2">
-              Prefer WhatsApp? Message me at
-            </p>
-            <a
-              href="https://wa.me/6285186861325"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xl sm:text-2xl font-semibold
-                         text-notion-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300
-                         transition-colors duration-200"
-            >
-              <MessageCircle className="w-6 h-6" />
-              +62 851-8686-1325
+    <section id="contact" className="py-16 lg:py-24 bg-[#f1f1f0] dark:bg-white/[0.03]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+        <div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight text-notion-black dark:text-white mb-6">
+            Let's build something <span className="font-serif italic text-gray-600 dark:text-gray-400">together.</span>
+          </h2>
+          <p className="text-base leading-relaxed text-gray-600 dark:text-gray-300 max-w-lg">
+            I'm open to AI engineering, backend engineering, full-stack, and
+            production AI workflow opportunities.
+          </p>
+        </div>
+        <div>
+          {contactItems.map((item) => {
+            const Icon = iconMap[item.icon];
+            const isEmail = item.type === 'Email';
+            return (
+              <a key={item.type} href={item.url} download={item.type === 'CV'}
+                className={`group flex items-center gap-4 min-h-16 transition-colors ${isEmail
+                  ? 'rounded-xl bg-notion-black text-white dark:bg-white dark:text-gray-900 p-5 mb-4 hover:bg-gray-800 dark:hover:bg-gray-200'
+                  : 'py-4 border-b border-gray-300 dark:border-white/15 text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300'}`}>
+                <Icon aria-hidden="true" className="w-5 h-5 shrink-0" />
+                <span className="min-w-0 flex-1">
+                  {isEmail && <span className="block text-xs mb-1">Email</span>}
+                  <span className={`font-medium ${isEmail ? 'break-all text-lg' : 'text-base'}`}>{item.label}</span>
+                </span>
+                <ArrowUpRight aria-hidden="true" className="w-5 h-5 shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+            );
+          })}
+          <div className="mt-8">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">Prefer WhatsApp? Message me at</p>
+            <a href="https://wa.me/6285186861325" target="_blank" rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 text-lg font-semibold text-notion-black dark:text-white hover:underline underline-offset-4">
+              <MessageCircle aria-hidden="true" className="w-5 h-5" /> +62 851-8686-1325
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

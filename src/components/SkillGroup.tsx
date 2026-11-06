@@ -31,15 +31,10 @@ export function SkillGroup({ group, index }: SkillGroupProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-      className="p-6 rounded-xl
-                 bg-white dark:bg-white/5
-                 border border-gray-200 dark:border-white/10
-                 hover:border-gray-300 dark:hover:border-white/20
-                 transition-all duration-300"
+      className="min-w-0 py-2"
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-5">
+      <div className="flex items-center gap-3 mb-4">
         <div className={`p-2.5 rounded-lg ${bgClass}`}>
           <Icon className="w-5 h-5 text-notion-black dark:text-white" />
         </div>
@@ -49,20 +44,16 @@ export function SkillGroup({ group, index }: SkillGroupProps) {
       </div>
 
       {/* Skills */}
-      <div className="flex flex-wrap gap-2">
+      <ul aria-label={`${group.name} technologies`} className="flex flex-wrap gap-2">
         {group.skills.map((skill) => (
-          <span
+          <li
             key={skill}
-            className="px-3 py-1.5 text-sm font-medium rounded-lg
-                       bg-gray-100 text-gray-700
-                       dark:bg-white/10 dark:text-gray-300
-                       hover:bg-gray-200 dark:hover:bg-white/20
-                       transition-colors duration-200"
+            className="px-2.5 py-1 text-sm leading-relaxed rounded-md border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04] text-gray-700 dark:text-gray-300"
           >
             {skill}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </motion.div>
   );
 }

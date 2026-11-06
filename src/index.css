@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,6 +11,34 @@
 
   body {
     @apply antialiased;
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background: #d1d5db;
+    color: #111111;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    color: #111;
+    border: 1px solid #111;
+    border-radius: 0.5rem;
+    transform: translateY(-200%);
+    clip-path: inset(50%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    clip-path: none;
   }
 
   :focus-visible {

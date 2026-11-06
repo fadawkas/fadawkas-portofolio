@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Trophy, Award, GraduationCap } from 'lucide-react';
 import { achievements } from '../data/achievements';
-import { ScrollHeading } from './motion/ScrollHeading';
 
 const iconMap: Record<string, React.ElementType> = {
   'Best Paper - SENAMIKA 2024': Trophy,
@@ -11,7 +10,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 export function Achievements() {
   return (
-    <section className="py-20 lg:py-32 bg-gray-50/50 dark:bg-white/[0.02]">
+    <section className="py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -19,10 +18,9 @@ export function Achievements() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
+          className="mb-8"
         >
-          <ScrollHeading label="Achievements" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-notion-black dark:text-white">
+          <h2 className="text-3xl sm:text-4xl font-sans font-bold uppercase tracking-tight text-notion-black dark:text-white">
             Recognition
           </h2>
         </motion.div>
@@ -38,12 +36,7 @@ export function Achievements() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-                className="p-6 rounded-xl text-center
-                           bg-white dark:bg-white/5
-                           border border-gray-200 dark:border-white/10
-                           hover:border-gray-300 dark:hover:border-white/20
-                           transition-all duration-300"
+                className="pt-6 border-t border-gray-300 dark:border-white/20"
               >
                 <div className="inline-flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-gray-100 dark:bg-white/10">
                   <Icon className="w-5 h-5 text-notion-black dark:text-white" />

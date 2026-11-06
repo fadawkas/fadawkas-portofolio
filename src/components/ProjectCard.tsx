@@ -1,105 +1,60 @@
-import { motion } from 'framer-motion';
-import { Github, ArrowRight } from 'lucide-react';
+import { Github, ArrowUpRight } from 'lucide-react';
 import { Project } from '../data/projects';
 import { ProjectCarousel } from './ProjectCarousel';
+import { SystemFlow } from './SystemFlow';
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
+  featured?: boolean;
+  compact?: boolean;
   onViewDetails: () => void;
 }
 
-export function ProjectCard({ project, index, onViewDetails }: ProjectCardProps) {
+export function ProjectCard({ project, featured = false, compact = false, onViewDetails }: ProjectCardProps) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="group flex flex-col overflow-hidden rounded-xl
-                 bg-white dark:bg-dark-card
-                 border border-[#e9e9e7] dark:border-dark-border
-                 hover:border-gray-300 dark:hover:border-white/20
-                 hover:shadow-sm
-                 transition-colors duration-200"
-    >
-      {/* Image Carousel */}
-      <div className="relative">
-        <ProjectCarousel images={project.images} projectName={project.name} />
-
-        {/* Category Badge */}
-        <div className="absolute top-3 left-3">
-          <span className="px-2.5 py-1 text-xs font-medium rounded-full
-                           bg-white/90 dark:bg-dark-card/90
-                           border border-[#e9e9e7] dark:border-dark-border
-                           text-gray-700 dark:text-gray-300
-                           backdrop-blur-sm">
-            {project.category}
-          </span>
+    <article className={`group overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-dark-card ${featured ? 'md:grid md:grid-cols-[1.15fr_1fr]' : 'flex flex-col'}`}>
+      <div className={featured ? 'min-w-0 bg-gray-50 dark:bg-black/10 md:flex md:items-center p-3 sm:p-5' : 'min-w-0'}>
+        <div className="w-full overflow-hidden rounded-lg">
+          <ProjectCarousel images={project.images} projectName={project.name} />
         </div>
       </div>
-
-      {/* Content */}
-      <div className="flex flex-col flex-grow p-5 space-y-3">
-        {/* Title */}
-        <h3 className="text-lg font-bold text-notion-black dark:text-white leading-snug">
+      <div className={`flex flex-col items-start gap-4 ${featured ? 'p-6 lg:p-10' : 'p-5 sm:p-6'}`}>
+        <span className="text-sm text-gray-600 dark:text-gray-300">{project.category}</span>
+        <h3 className={`font-semibold leading-tight tracking-tight text-notion-black dark:text-white ${featured ? 'text-2xl lg:text-3xl' : 'text-xl'}`}>
           {project.name}
         </h3>
-
-        {/* Description */}
-        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-          {project.description}
-        </p>
-
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-1.5">
-          {project.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-1 text-xs font-medium rounded-md
-                         bg-[#f1f1f0] dark:bg-white/10
-                         border border-[#e9e9e7] dark:border-white/10
-                         text-gray-600 dark:text-gray-300"
-            >
-              {tech}
-            </span>
-          ))}
+        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">{project.description}</p>
+        {!compact && (
+          <ul aria-label="Technologies" className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600 dark:text-gray-300">
+            {project.techStack.map((tech) => <li key={tech}>{tech}</li>)}
+          </ul>
+        )}
+        <div className="w-full border-t border-gray-200 dark:border-white/10 pt-4">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{project.highlightType}</p>
+          <p className="text-sm font-medium leading-relaxed text-gray-800 dark:text-gray-100">{project.highlight}</p>
         </div>
-
-        {/* Highlight */}
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300 mb-1">
-            {project.highlightType}
-          </p>
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 leading-relaxed">
-            {project.highlight}
-          </p>
-        </div>
-
-        {/* Action row */}
-        <div className="flex items-center gap-3 pt-1 mt-auto">
-          <a
-            href={project.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium
-                       border border-gray-300 dark:border-white/20 text-gray-700 dark:text-gray-200 rounded-lg
-                       hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-200"
-          >
-            <Github className="w-3.5 h-3.5" />
-            GitHub
-          </a>
+        <div className="flex flex-wrap items-center gap-3 mt-auto pt-2">
           <button
             onClick={onViewDetails}
-            className="inline-flex items-center gap-1 px-3.5 py-2 text-sm font-semibold
-                       bg-notion-black text-white dark:bg-white dark:text-gray-900 rounded-lg
-                       hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 cursor-pointer group/btn"
+            aria-label={`View case study: ${project.name}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-notion-black text-white dark:bg-white dark:text-gray-900 px-5 py-2 text-sm font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
           >
-            Read more
-            <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform duration-150" />
+            View case study <ArrowUpRight aria-hidden="true" className="w-4 h-4" />
           </button>
+          {project.links.github && (
+            <a href={project.links.github} target="_blank" rel="noopener noreferrer"
+              aria-label={`GitHub: ${project.name}`}
+              className="inline-flex min-h-11 items-center gap-2 px-2 text-sm text-gray-700 dark:text-gray-200 underline-offset-4 hover:underline">
+              <Github aria-hidden="true" className="w-4 h-4" /> GitHub
+            </a>
+          )}
         </div>
       </div>
-    </motion.article>
+      {featured && project.systemFlow && (
+        <div className="md:col-span-2 border-t border-gray-200 dark:border-white/10 p-6 lg:px-10">
+          <SystemFlow steps={project.systemFlow} />
+        </div>
+      )}
+    </article>
   );
 }

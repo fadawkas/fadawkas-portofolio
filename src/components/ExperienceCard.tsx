@@ -11,21 +11,16 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
       className="relative"
     >
       <div
-        className="p-6 lg:p-8 rounded-xl
-                   bg-white dark:bg-white/5
-                   border border-gray-200 dark:border-white/10
-                   hover:border-gray-300 dark:hover:border-white/20
-                   transition-all duration-300"
+        className="pt-6 border-t border-gray-300 dark:border-white/20"
       >
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+        <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-4 mb-6">
           <div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
               {experience.role}
@@ -35,7 +30,7 @@ export function ExperienceCard({ experience, index }: ExperienceCardProps) {
               <span className="font-semibold">{experience.company}</span>
             </div>
           </div>
-          <div className="flex flex-col sm:items-end gap-1 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col xl:items-end gap-1 text-sm text-gray-500 dark:text-gray-400">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               <span>{experience.period}</span>

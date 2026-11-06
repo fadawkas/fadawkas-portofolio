@@ -9,6 +9,7 @@ export interface Project {
   highlight: string;
   highlightType: 'Reported metric' | 'Implemented capability';
   images: string[];
+  systemFlow?: string[];
   links: {
     github?: string;
     demo?: string;
@@ -46,6 +47,7 @@ export const projects: Project[] = [
     highlight: 'Answer Relevancy: 0.801 • Context Precision: 1.00',
     highlightType: 'Reported metric',
     images: [ragLaw1, ragLaw2, ragLaw3],
+    systemFlow: ['User question', 'FAISS retrieval', 'Legal passages', 'Language-model response'],
     links: {
       github: 'https://github.com/fadawkas/themisai',
     },
@@ -62,6 +64,7 @@ export const projects: Project[] = [
     highlight: 'Recorded-Answer Transcription • Background Analysis',
     highlightType: 'Implemented capability',
     images: [nobi1, nobi2, nobi3],
+    systemFlow: ['Recorded answer', 'Background processing', 'Transcription & expression analysis', 'Structured feedback'],
     links: {
       github: 'https://github.com/fadawkas/nobi-interview-training',
     },
@@ -78,6 +81,7 @@ export const projects: Project[] = [
     highlight: 'Real-Time Monitoring • Alert Engine',
     highlightType: 'Implemented capability',
     images: [infraMon1, infraMon2, infraMon3],
+    systemFlow: ['Go telemetry agent', 'Backend & PostgreSQL', 'Alert evaluation', 'SSE dashboard updates'],
     links: {
       github: 'https://github.com/fadawkas/heimops',
     },

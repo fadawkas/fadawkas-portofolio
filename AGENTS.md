@@ -1,22 +1,26 @@
 # Baseline (always on)
 
-Behavioral guardrails for every task. They bias toward caution and reviewability
-over raw speed. Detailed, domain-specific workflows belong in on-demand skills;
-this file contains only rules that apply everywhere.
+Behavioral guardrails for every task. Aim for the smallest complete solution
+with the least maintenance burden. Detailed workflows belong in on-demand skills.
 
 ## Think before coding
 
 - State material assumptions before acting. If a decision would substantially
   change the result, ask rather than guessing.
 - Prefer the simplest approach that meets the request.
+- Ask about consequential ambiguity; use existing conventions for low-impact
+  details and respect decisions the user delegates.
 
 ## Simplicity first
 
 - Write the minimum code that solves the problem. Nothing speculative.
 - No features beyond what was asked. No abstractions for single-use code. No
   "flexibility" or configurability that wasn't requested.
-- Self-check: if it's 200 lines and could be 50, rewrite it. Would a senior
-  engineer call this overcomplicated? If yes, simplify.
+- Before adding code, look for existing project functionality, then standard
+  library or native platform capabilities, then installed dependencies. Add
+  minimal new code only when these do not fully solve the problem.
+- Optimize for readability and maintenance, not the fewest characters. Never
+  cut boundary validation, data-loss protection, security, or accessibility.
 
 ## Surgical changes
 
@@ -24,20 +28,34 @@ this file contains only rules that apply everywhere.
 - Match the existing style, naming, and structure — even if you'd do it
   differently.
 - Every changed line should trace directly to the request.
+- Trace the affected flow and include required callers, contracts, fixtures,
+  configuration, and checks. A small diff that leaves the task broken is unfinished.
 - Remove only imports/variables/functions your own change made unused. Don't
   delete pre-existing dead code — mention it instead.
 
 ## Skill check
 
-Before non-trivial work, inspect the available skill descriptions and load every
-skill that plausibly applies. This includes skills discovered globally, not only
-in the current project. A truly trivial, unambiguous one-line edit may skip the
-check.
+Before non-trivial work, inspect available skill descriptions, including globally
+discovered skills. Load skills whose workflows actually apply, not those sharing
+only a keyword. Read supporting references only when needed. Trivial edits may
+skip this check.
+
+Load a skill by reading the advertised SKILL.md path, not by assuming a slash
+command is a shell command. Global skills live in `~/.pi/agent/skills/`;
+project skills may live in `.pi/skills/` or `.agents/skills/`.
+Resolve skill-root script/reference paths from the SKILL.md directory and
+Markdown links from the file containing them. Use absolute paths in tool calls;
+keep shell cwd at the project root unless instructed otherwise.
+Supporting skills hidden from automatic selection can still be read explicitly
+when the frontend coordinator routes to them. Report missing files/tools instead
+of inventing an integration.
 
 - Multiple workflows can apply. For example, a backend bug uses both
   `senior-engineering` and `debugging`; a UI review uses `frontend-ui` and
   `code-review`.
-- If no skill applies, say so explicitly before proceeding with this baseline.
+- Use `interview-me` for consequential uncertainty about the intended outcome;
+  use `idea-refine` to explore approaches to a rough concept. Clear requests do
+  not need either workflow.
   
 ## Safety
 
@@ -54,4 +72,26 @@ check.
 - Define practical success criteria before changing non-trivial work, then verify
   the relevant behavior with the project's existing tooling.
 - Never claim a change is verified when it isn't; state what could not be run.
+- Use checks proportional to the risk. For meaningful logic changes and bug
+  fixes, add or update a focused behavior test when practical; cosmetic or
+  mechanical changes do not need tests that merely mirror the edit.
+- Keep exploration focused. Reuse gathered evidence, run independent checks in
+  parallel when possible, and repeat checks only after relevant changes or failures.
 - Summarize which files changed and why.
+
+## Frontend routing
+
+For frontend design, styling, animation, or visual review, load
+`frontend-ui` first. Load only the supporting guidance needed for
+the task. Preserve the user's brief and existing brand.
+
+Use Playwright for rendered verification. Capture and view screenshots
+before claiming visual verification.
+
+## Pi workflow
+
+Load skills by reading their SKILL.md instructions. Use `/reload`
+after changing skills or configuration.
+
+When the user requests planning only, investigate and propose a plan
+before implementing. Use the available plan-mode extension when enabled.

@@ -5,6 +5,7 @@ import { X, Github, ExternalLink, Code2, Sparkles, Link2 } from 'lucide-react';
 import { Project } from '../data/projects';
 import { ProjectCarousel } from './ProjectCarousel';
 import { useReducedMotion } from '../hooks/useReducedMotion';
+import { SystemFlow } from './SystemFlow';
 
 interface ProjectDetailsDialogProps {
   project: Project | null;
@@ -22,7 +23,7 @@ function SectionHeader({ icon: Icon, label }: { icon: React.ElementType; label: 
     <div className="flex items-center gap-2.5">
       <span className="w-1 h-4 rounded-full bg-notion-black dark:bg-white" />
       <Icon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+      <h3 className="text-base font-semibold text-gray-800 dark:text-gray-100">
         {label}
       </h3>
     </div>
@@ -62,7 +63,10 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (!first || !last) return;
-      if (e.shiftKey && document.activeElement === first) {
+      if (!dialogRef.current.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
       } else if (!e.shiftKey && document.activeElement === last) {
@@ -166,6 +170,12 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
                 transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="p-6 sm:p-8 space-y-8"
               >
+                {project.systemFlow && (
+                  <section className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">How the system works</h3>
+                    <SystemFlow steps={project.systemFlow} />
+                  </section>
+                )}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <section className="space-y-3">
                     <SectionHeader icon={Sparkles} label="Problem" />
@@ -201,13 +211,15 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
                     <div
                       className="flex gap-3 p-4 rounded-xl
                                  bg-[#f1f1f0]/80 dark:bg-white/[0.04]
-                                 border border-[#e9e9e7] dark:border-dark-border
-                                 border-l-2 border-l-notion-black dark:border-l-white"
+                                 border border-[#e9e9e7] dark:border-dark-border"
                     >
                       <Sparkles className="w-5 h-5 shrink-0 text-notion-black dark:text-white mt-0.5" />
-                      <p className="text-sm sm:text-base font-semibold text-gray-800 dark:text-white leading-relaxed">
-                        {project.highlight}
-                      </p>
+                      <div>
+                        <p className="text-sm sm:text-base font-semibold text-gray-800 dark:text-white leading-relaxed">{project.highlight}</p>
+                        {project.highlightType === 'Reported metric' && (
+                          <p className="mt-3 text-sm font-normal text-gray-600 dark:text-gray-300 leading-relaxed">Reported project evaluation result. See the repository for evaluation details and context.</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

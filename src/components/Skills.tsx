@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion';
 import { skillGroups } from '../data/skills';
 import { SkillGroup } from './SkillGroup';
-import { ScrollHeading } from './motion/ScrollHeading';
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20 lg:py-32">
+    <section id="skills" className="py-16 lg:py-20 border-y border-gray-200 dark:border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -13,13 +12,12 @@ export function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
+          className="mb-8"
         >
-          <ScrollHeading label="Skills" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-notion-black dark:text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-sans font-bold uppercase tracking-tight text-notion-black dark:text-white mb-4">
             Technologies
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+          <p className="text-base text-gray-600 dark:text-gray-300 max-w-2xl">
             Technologies and tools I use to build AI-powered and production-oriented applications.
           </p>
         </motion.div>

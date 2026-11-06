@@ -3,6 +3,7 @@ import { Menu, X, Download } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import type Lenis from 'lenis';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface NavbarProps {
   theme: 'dark' | 'light';
@@ -18,6 +19,7 @@ const navLinks = [
 ];
 
 export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
+  const reduced = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -62,11 +64,11 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
     setIsMenuOpen(false);
     if (isMenuOpen) menuButtonRef.current?.focus();
     const lenis = (window as unknown as Record<string, unknown>).__lenis as Lenis | undefined;
-    if (lenis) {
+    if (lenis && !reduced) {
       lenis.scrollTo(href);
     } else {
       const element = document.querySelector(href);
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
+      if (element) element.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' });
     }
   };
 
@@ -82,11 +84,13 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                  transition-colors duration-300"
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16">
-          <div aria-hidden="true" className="w-9 h-9" />
+        <div className="flex items-center justify-between gap-6 h-16">
+          <a href="#home" onClick={(event) => { event.preventDefault(); handleNavClick('#home'); }} className="font-semibold text-notion-black dark:text-white tracking-tight py-2">
+            Fadawkas<span className="text-gray-500 dark:text-gray-400">.</span>
+          </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8 justify-self-center">
+          <div className="hidden md:flex items-center gap-5 lg:gap-8">
             {navLinks.map((link) => {
               const isActive = link.href === `#${activeSection}`;
               return (
@@ -134,7 +138,7 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 ml-auto md:hidden">
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             <button
               ref={menuButtonRef}

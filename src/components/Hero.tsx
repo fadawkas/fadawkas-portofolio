@@ -1,14 +1,16 @@
 import { ArrowDown, Download, MapPin } from 'lucide-react';
 import fadawkasImg from '../assets/Fadawkas.jpeg';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export function Hero() {
+  const reduced = useReducedMotion();
   const handleScrollToProjects = () => {
-    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#projects')?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' });
   };
 
   return (
-    <section id="home" className="relative pt-24 xl:min-h-screen xl:flex xl:items-center xl:pt-16">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
+    <section id="home" className="relative pt-24 overflow-hidden">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(240px,0.8fr)] xl:grid-cols-[minmax(0,1fr)_auto] gap-10 xl:gap-20 items-center">
           <div className="space-y-6 order-1">
             <p className="text-base text-gray-700 dark:text-gray-300">Hey, I'm Fadawkas,</p>
@@ -60,8 +62,8 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-12 lg:mt-20 pt-8 lg:pt-10 border-t border-gray-200 dark:border-white/10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-8">
+        <div className="mt-12 lg:mt-16 pt-8 border-t border-gray-200 dark:border-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6">
             <div>
               <h2 className="text-base font-semibold text-notion-black dark:text-white mb-2">AI-Powered Systems</h2>
               <p className="max-w-lg text-sm text-gray-600 dark:text-gray-300 leading-relaxed">

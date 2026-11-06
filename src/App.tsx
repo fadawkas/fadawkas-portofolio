@@ -23,8 +23,9 @@ function App() {
       <SmoothScroll>
         <div className="min-h-screen bg-white dark:bg-dark-bg transition-colors duration-300">
           <Spotlight />
+          <a href="#main-content" className="skip-link">Skip to content</a>
           <Navbar theme={theme} toggleTheme={toggleTheme} activeSection={activeSection} />
-          <main>
+          <main id="main-content" tabIndex={-1}>
             <Hero />
             <Projects />
             <Experience />

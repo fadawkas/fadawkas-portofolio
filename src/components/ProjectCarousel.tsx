@@ -62,6 +62,7 @@ export function ProjectCarousel({ images, projectName, isDialog = false }: Proje
   };
 
   return (
+    <figure className="w-full">
     <div
       role="region"
       aria-label={`${projectName} screenshots`}
@@ -86,7 +87,7 @@ export function ProjectCarousel({ images, projectName, isDialog = false }: Proje
             x: { type: 'spring', stiffness: 300, damping: 30, duration: reduced ? 0 : undefined },
             opacity: { duration: reduced ? 0 : 0.2 },
           }}
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full ${isDialog ? 'object-contain' : 'object-cover'}`}
         />
       </AnimatePresence>
 
@@ -126,5 +127,10 @@ export function ProjectCarousel({ images, projectName, isDialog = false }: Proje
         ))}
       </div>}
     </div>
+    <figcaption className="flex justify-between gap-4 px-3 py-2 text-xs text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-black/20">
+      <span>Project preview</span>
+      <span aria-live="polite" aria-atomic="true">Image {currentIndex + 1} of {images.length}</span>
+    </figcaption>
+    </figure>
   );
 }
