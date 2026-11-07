@@ -85,10 +85,6 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 h-16">
-          <a href="#home" onClick={(event) => { event.preventDefault(); handleNavClick('#home'); }} className="font-semibold text-notion-black dark:text-white tracking-tight py-2">
-            Fadawkas<span className="text-gray-500 dark:text-gray-400">.</span>
-          </a>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-5 lg:gap-8">
             {navLinks.map((link) => {

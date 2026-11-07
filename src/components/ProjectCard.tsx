@@ -23,7 +23,7 @@ export function ProjectCard({ project, featured = false, compact = false, onView
         <h3 className={`font-semibold leading-tight tracking-tight text-notion-black dark:text-white ${featured ? 'text-2xl lg:text-3xl' : 'text-xl'}`}>
           {project.name}
         </h3>
-        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">{project.description}</p>
+        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300 text-justify">{project.description}</p>
         {!compact && (
           <ul aria-label="Technologies" className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600 dark:text-gray-300">
             {project.techStack.map((tech) => <li key={tech}>{tech}</li>)}

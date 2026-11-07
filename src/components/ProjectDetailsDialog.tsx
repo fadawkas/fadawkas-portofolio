@@ -179,11 +179,11 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <section className="space-y-3">
                     <SectionHeader icon={Sparkles} label="Problem" />
-                    <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed">{project.problem}</p>
+                    <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed text-justify">{project.problem}</p>
                   </section>
                   <section className="space-y-3">
                     <SectionHeader icon={Code2} label="Engineering approach" />
-                    <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed">{project.engineering}</p>
+                    <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed text-justify">{project.engineering}</p>
                   </section>
                 </div>
 

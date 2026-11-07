@@ -19,7 +19,7 @@ export function Hero() {
               <span className="block text-gray-700 dark:text-gray-300">&amp; Full-Stack</span>
               <span className="block">Developer</span>
             </h1>
-            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-md leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-md leading-relaxed text-justify">
               I build agentic AI workflows, tool integrations, and the backend services behind useful LLM and full-stack applications.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
