@@ -84,9 +84,9 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                  transition-colors duration-300"
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-6 h-16">
+        <div className="relative flex items-center justify-end gap-6 h-16">
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-5 lg:gap-8">
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-5 lg:gap-8">
             {navLinks.map((link) => {
               const isActive = link.href === `#${activeSection}`;
               return (
