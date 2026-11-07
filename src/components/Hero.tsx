@@ -48,8 +48,10 @@ export function Hero() {
 
           <div className="relative flex items-center justify-center order-2">
             <div className="relative rounded-full border border-gray-300 dark:border-white/20 p-1">
-              <div className="absolute -inset-8 rotating-border-ring" aria-hidden="true" />
-              <div className="absolute inset-0 rotating-border" aria-hidden="true" />
+              <div className="portrait-halo" aria-hidden="true">
+                <div className="portrait-halo-inner" />
+                <div className="portrait-halo-orbit" />
+              </div>
               <div className="w-56 h-56 sm:w-72 sm:h-72 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
                 <img
                   src={fadawkasImg}

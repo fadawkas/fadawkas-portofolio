@@ -125,15 +125,9 @@
   }
 }
 
-@property --border-angle {
+@property --halo-reveal {
   syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --border-angle-2 {
-  syntax: '<angle>';
-  initial-value: 0deg;
+  initial-value: 360deg;
   inherits: false;
 }
 
@@ -147,14 +141,6 @@
     to { transform: rotate(-360deg); }
   }
 
-  @keyframes border-spin {
-    to { --border-angle: 360deg; }
-  }
-
-  @keyframes border-spin-reverse {
-    to { --border-angle-2: -360deg; }
-  }
-
   .animate-spin-slow {
     animation: spin-slow 10s linear infinite;
   }
@@ -163,142 +149,119 @@
     animation: spin-slow-reverse 15s linear infinite;
   }
 
-  /* Rotating gradient border — inner ring (DARK MODE) */
-  html.dark .rotating-border {
+  /* Silver orbital halo: a crisp comet and a slower, counter-rotating satellite. */
+  .portrait-halo {
+    --halo-light: 67 76 89;
+    --halo-track: rgb(67 76 89 / 0.18);
     position: absolute;
-    inset: 0;
+    inset: -36px;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: 50%;
+    mask: conic-gradient(from -90deg, #000 var(--halo-reveal), transparent 0);
+    animation: halo-reveal 850ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  html.dark .portrait-halo {
+    --halo-light: 245 248 255;
+    --halo-track: rgb(225 231 241 / 0.17);
+  }
+
+  .portrait-halo-inner,
+  .portrait-halo-orbit {
+    position: absolute;
     border-radius: 50%;
   }
 
-  html.dark .rotating-border::before {
+  .portrait-halo-inner {
+    inset: 33px;
+    border: 1px solid var(--halo-track);
+    animation: halo-comet 12s linear infinite;
+  }
+
+  .portrait-halo-inner::before,
+  .portrait-halo-orbit::before {
     content: '';
     position: absolute;
-    inset: -4px;
-    border-radius: 50%;
+    inset: -1px;
+    border-radius: inherit;
+    mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 0);
+  }
+
+  .portrait-halo-inner::before {
     background: conic-gradient(
-      from var(--border-angle),
-      transparent 0deg,
-      rgba(255, 255, 255, 0.03) 100deg,
-      rgba(255, 255, 255, 0.15) 140deg,
-      rgba(255, 255, 255, 1) 180deg,
-      rgba(255, 255, 255, 0.15) 220deg,
-      rgba(255, 255, 255, 0.03) 260deg,
+      transparent 0deg 312deg,
+      rgb(var(--halo-light) / 0.08) 324deg,
+      rgb(var(--halo-light) / 0.35) 344deg,
+      rgb(var(--halo-light) / 0.95) 359deg,
       transparent 360deg
     );
-    -webkit-mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 4px),
-      #fff calc(100% - 4px)
-    );
-    mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 4px),
-      #fff calc(100% - 4px)
-    );
-    animation: border-spin 5s ease-in-out infinite;
   }
 
-  /* Rotating gradient border — inner ring (LIGHT MODE) */
-  html:not(.dark) .rotating-border {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-  }
-
-  html:not(.dark) .rotating-border::before {
+  .portrait-halo-inner::after {
     content: '';
     position: absolute;
-    inset: -4px;
+    top: -1px;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
+    background: radial-gradient(circle, rgb(var(--halo-light) / 0.55), rgb(var(--halo-light) / 0.12) 30%, transparent 70%);
+  }
+
+  .portrait-halo-orbit {
+    inset: 10px;
+    border: 1px solid var(--halo-track);
+    animation: halo-satellite 22s linear infinite;
+  }
+
+  .portrait-halo-orbit::before {
     background: conic-gradient(
-      from var(--border-angle),
-      transparent 0deg,
-      rgba(0, 0, 0, 0.05) 100deg,
-      rgba(0, 0, 0, 0.3) 140deg,
-      rgba(0, 0, 0, 0.9) 180deg,
-      rgba(0, 0, 0, 0.3) 220deg,
-      rgba(0, 0, 0, 0.05) 260deg,
-      transparent 360deg
+      rgb(var(--halo-light) / 0.55),
+      rgb(var(--halo-light) / 0.15) 12deg,
+      transparent 32deg 360deg
     );
-    -webkit-mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 4px),
-      #000 calc(100% - 4px)
-    );
-    mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 4px),
-      #000 calc(100% - 4px)
-    );
-    animation: border-spin 5s ease-in-out infinite;
+    mask: radial-gradient(farthest-side, transparent calc(100% - 1px), #000 0);
   }
 
-  /* Rotating gradient border — outer ring (DARK MODE) */
-  html.dark .rotating-border-ring {
-    position: absolute;
-    border-radius: 50%;
-  }
-
-  html.dark .rotating-border-ring::before {
+  .portrait-halo-orbit::after {
     content: '';
     position: absolute;
-    inset: 0;
+    top: -1px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: conic-gradient(
-      from var(--border-angle-2),
-      transparent 0deg,
-      rgba(255, 255, 255, 0.02) 120deg,
-      rgba(255, 255, 255, 0.12) 160deg,
-      rgba(255, 255, 255, 0.7) 200deg,
-      rgba(255, 255, 255, 0.12) 240deg,
-      rgba(255, 255, 255, 0.02) 280deg,
-      transparent 360deg
-    );
-    -webkit-mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 2px),
-      #fff calc(100% - 2px)
-    );
-    mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 2px),
-      #fff calc(100% - 2px)
-    );
-    animation: border-spin-reverse 8s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+    background: rgb(var(--halo-light) / 0.85);
+    box-shadow: 0 0 7px 1px rgb(var(--halo-light) / 0.25);
   }
 
-  /* Rotating gradient border — outer ring (LIGHT MODE) */
-  html:not(.dark) .rotating-border-ring {
-    position: absolute;
-    border-radius: 50%;
+  @keyframes halo-reveal {
+    from { --halo-reveal: 55deg; opacity: 0; }
+    to { --halo-reveal: 360deg; opacity: 1; }
   }
 
-  html:not(.dark) .rotating-border-ring::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(
-      from var(--border-angle-2),
-      transparent 0deg,
-      rgba(0, 0, 0, 0.04) 120deg,
-      rgba(0, 0, 0, 0.25) 160deg,
-      rgba(0, 0, 0, 0.9) 200deg,
-      rgba(0, 0, 0, 0.25) 240deg,
-      rgba(0, 0, 0, 0.04) 280deg,
-      transparent 360deg
-    );
-    -webkit-mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 2px),
-      #000 calc(100% - 2px)
-    );
-    mask: radial-gradient(
-      farthest-side,
-      transparent calc(100% - 2px),
-      #000 calc(100% - 2px)
-    );
-    animation: border-spin-reverse 8s ease-in-out infinite;
+  @keyframes halo-comet {
+    from { transform: rotate(-40deg); }
+    to { transform: rotate(320deg); }
+  }
+
+  @keyframes halo-satellite {
+    from { transform: rotate(55deg); }
+    to { transform: rotate(-305deg); }
+  }
+
+  @media (max-width: 1279px) {
+    .portrait-halo { inset: -28px; }
+    .portrait-halo-inner { inset: 25px; }
+    .portrait-halo-orbit { inset: 8px; }
+  }
+
+  @media (max-width: 639px) {
+    .portrait-halo-inner::after { width: 14px; height: 14px; }
+    .portrait-halo-orbit::after { box-shadow: 0 0 4px rgb(var(--halo-light) / 0.2); }
   }
 
   /* Marquee scroll animation */
@@ -382,10 +345,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.dark .rotating-border::before,
-  html:not(.dark) .rotating-border::before,
-  html.dark .rotating-border-ring::before,
-  html:not(.dark) .rotating-border-ring::before {
+  .portrait-halo,
+  .portrait-halo-inner,
+  .portrait-halo-orbit {
     animation: none !important;
   }
+
+  .portrait-halo {
+    mask: none;
+  }
+
+  .portrait-halo-inner { transform: rotate(-40deg); }
+  .portrait-halo-orbit { transform: rotate(55deg); }
 }
