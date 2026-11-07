@@ -35,8 +35,11 @@ export function Projects() {
           ))}
         </div>
         <div className="mt-14 lg:mt-16">
-          <h3 className="text-2xl font-semibold tracking-tight text-notion-black dark:text-white mb-6">More projects & research</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3 border-b border-gray-300 dark:border-white/15 pb-5">
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-notion-black dark:text-white">More projects & research</h3>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{projects.length - 3} projects</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {projects.slice(3).map((project) => (
               <ProjectCard key={project.id} project={project} compact onViewDetails={() => handleViewDetails(project)} />
             ))}
