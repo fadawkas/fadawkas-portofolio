@@ -5,7 +5,7 @@ const iconMap = { email: Mail, linkedin: Linkedin, github: Github, cv: Download 
 
 export function Contact() {
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-[#f1f1f0] dark:bg-white/[0.03]">
+    <section id="contact" className="py-16 lg:py-24 bg-light-card dark:bg-white/[0.03]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
         <div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight text-notion-black dark:text-white mb-6">
@@ -23,7 +23,7 @@ export function Contact() {
             return (
               <a key={item.type} href={item.url} download={item.type === 'CV'}
                 className={`group flex items-center gap-4 min-h-16 transition-colors ${isEmail
-                  ? 'rounded-xl bg-notion-black text-white dark:bg-white dark:text-gray-900 p-5 mb-4 hover:bg-gray-800 dark:hover:bg-gray-200'
+                  ? 'rounded-xl bg-accent text-notion-black p-5 mb-4 hover:bg-accent-hover'
                   : 'py-4 border-b border-gray-300 dark:border-white/15 text-gray-800 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300'}`}>
                 <Icon aria-hidden="true" className="w-5 h-5 shrink-0" />
                 <span className="min-w-0 flex-1">

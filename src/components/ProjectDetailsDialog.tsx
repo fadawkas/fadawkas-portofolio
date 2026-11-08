@@ -144,7 +144,7 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
                   </p>
                 </div>
 
-                <div className="border-y border-gray-200 dark:border-white/10 bg-[#e9e9e7] dark:bg-black/20 p-4 sm:px-10 sm:py-8">
+                <div className="border-y border-gray-200 dark:border-white/10 bg-light-card dark:bg-black/20 p-4 sm:px-10 sm:py-8">
                   <div className="overflow-hidden rounded-lg border border-black/10 dark:border-white/10 shadow-sm">
                     <ProjectCarousel images={project.images} projectName={project.name} isDialog />
                   </div>
@@ -161,11 +161,11 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
                       <p className="text-base text-gray-700 dark:text-gray-200 leading-7 text-left sm:text-justify">{project.engineering}</p>
                     </section>
 
-                    <section aria-label={project.highlightType} className="bg-notion-black dark:bg-[#e9e9e7] p-6 sm:p-7 rounded-xl">
-                      <p className="text-xl sm:text-2xl font-semibold leading-snug tracking-tight text-white dark:text-notion-black">{project.highlight}</p>
-                      <h3 className="mt-5 text-sm font-medium text-gray-300 dark:text-gray-700">{project.highlightType}</h3>
+                    <section aria-label={project.highlightType} className="space-y-4 border-t border-gray-200 dark:border-white/10 pt-8">
+                      <SectionHeader label={project.highlightType} />
+                      <p className="text-base font-semibold leading-7 text-notion-black dark:text-white">{project.highlight}</p>
                       {project.highlightType === 'Reported metric' && (
-                        <p className="mt-3 text-sm leading-relaxed text-gray-300 dark:text-gray-700">Reported project evaluation result. See the repository for evaluation details and context.</p>
+                        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">Reported project evaluation result. See the repository for evaluation details and context.</p>
                       )}
                     </section>
 
@@ -195,7 +195,7 @@ export function ProjectDetailsDialog({ project, isOpen, onClose, openerRef }: Pr
                               href={project.links.github}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-notion-black px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition-colors"
+                              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-notion-black hover:bg-accent-hover transition-colors"
                             >
                               <Github aria-hidden="true" className="w-4 h-4" />
                               View on GitHub

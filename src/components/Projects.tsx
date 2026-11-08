@@ -19,7 +19,7 @@ export function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-16 lg:py-24 bg-[#f1f1f0] dark:bg-white/[0.02]">
+    <section id="projects" className="py-16 lg:py-24 bg-light-card dark:bg-white/[0.02]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10 lg:mb-12 max-w-2xl">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-sans font-bold uppercase tracking-tight text-notion-black dark:text-white mb-4">Projects</h2>

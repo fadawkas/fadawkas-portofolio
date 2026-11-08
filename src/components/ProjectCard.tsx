@@ -12,7 +12,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project, featured = false, compact = false, onViewDetails }: ProjectCardProps) {
   return (
     <article className={`group overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-dark-card transition-colors hover:border-gray-400 dark:hover:border-white/30 ${featured ? 'md:grid md:grid-cols-[1.15fr_1fr]' : 'flex flex-col'}`}>
-      <div className={`min-w-0 bg-[#e9e9e7] dark:bg-black/20 p-4 sm:p-6 ${featured ? 'md:flex md:items-center lg:p-8' : ''}`}>
+      <div className={`min-w-0 bg-light-card dark:bg-black/20 p-4 sm:p-6 ${featured ? 'md:flex md:items-center lg:p-8' : ''}`}>
         <div className="w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10 shadow-sm">
           <ProjectCarousel images={project.images} projectName={project.name} />
         </div>
@@ -41,7 +41,7 @@ export function ProjectCard({ project, featured = false, compact = false, onView
             className="inline-flex min-h-11 items-center gap-3 rounded-sm text-sm font-semibold text-notion-black dark:text-white underline-offset-4 hover:underline"
           >
             View case study
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-notion-black text-white dark:bg-white dark:text-gray-900">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-notion-black group-hover:bg-accent-hover transition-colors">
               <ArrowUpRight aria-hidden="true" className="w-4 h-4" />
             </span>
           </button>

@@ -108,7 +108,7 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                   {isActive && (
                     <motion.span
                       layoutId="navUnderline"
-                      className="block h-0.5 mt-0.5 bg-notion-black dark:bg-white rounded-full"
+                      className="block h-0.5 mt-0.5 bg-accent rounded-full"
                     />
                   )}
                 </a>
@@ -123,8 +123,8 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
               href="/Fadawkas_CV.pdf"
               download
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium
-                         bg-gray-900 hover:bg-gray-700
-                         text-white
+                         bg-accent hover:bg-accent-hover
+                         text-notion-black
                          rounded-lg
                          transition-all duration-200"
             >
@@ -185,7 +185,7 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                   >
                     {link.label}
                     {isActive && (
-                      <span className="inline-block w-1.5 h-1.5 ml-2 rounded-full bg-notion-black dark:bg-white" />
+                      <span className="inline-block w-1.5 h-1.5 ml-2 rounded-full bg-accent" />
                     )}
                   </a>
                 );
@@ -194,8 +194,8 @@ export function Navbar({ theme, toggleTheme, activeSection }: NavbarProps) {
                 href="/Fadawkas_CV.pdf"
                 download
                 className="flex items-center justify-center gap-2 w-full px-4 py-3
-                           bg-gray-900 hover:bg-gray-700
-                           text-white
+                           bg-accent hover:bg-accent-hover
+                           text-notion-black
                            rounded-lg font-medium
                            transition-all duration-200"
               >

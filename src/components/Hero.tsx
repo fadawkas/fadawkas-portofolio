@@ -32,7 +32,7 @@ export function Hero() {
               <button
                 type="button"
                 onClick={handleScrollToProjects}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-notion-black hover:bg-gray-800 text-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 font-semibold rounded-full transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-notion-black font-semibold rounded-full transition-colors"
               >
                 View Projects <ArrowDown className="w-4 h-4" aria-hidden="true" />
               </button>

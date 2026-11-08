@@ -18,8 +18,8 @@
   }
 
   ::selection {
-    background: #d1d5db;
-    color: #111111;
+    background: #DDD4C7;
+    color: #12110F;
   }
 
   .skip-link {
@@ -28,9 +28,9 @@
     left: 1rem;
     z-index: 100;
     padding: 0.75rem 1rem;
-    background: #fff;
-    color: #111;
-    border: 1px solid #111;
+    background: #F4EFE6;
+    color: #12110F;
+    border: 1px solid #12110F;
     border-radius: 0.5rem;
     transform: translateY(-200%);
     clip-path: inset(50%);
@@ -42,8 +42,12 @@
   }
 
   :focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid theme('colors.accent.focus');
     outline-offset: 3px;
+  }
+
+  html.dark :focus-visible {
+    outline-color: theme('colors.accent.DEFAULT');
   }
 
   /* Default dark theme */
@@ -73,12 +77,12 @@
 
 .project-dialog-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #9ca3af transparent;
+  scrollbar-color: #B9B0A4 transparent;
   scrollbar-gutter: stable;
 }
 
 .dark .project-dialog-scroll {
-  scrollbar-color: #6b7280 transparent;
+  scrollbar-color: #756B5F transparent;
 }
 
 .project-dialog-scroll::-webkit-scrollbar {
@@ -90,22 +94,22 @@
 }
 
 .project-dialog-scroll::-webkit-scrollbar-thumb {
-  background: #9ca3af;
+  background: #B9B0A4;
   border: 2px solid transparent;
   background-clip: padding-box;
   border-radius: 999px;
 }
 
 .dark .project-dialog-scroll::-webkit-scrollbar-thumb {
-  background-color: #6b7280;
+  background-color: #756B5F;
 }
 
 .project-dialog-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: #6b7280;
+  background-color: #756B5F;
 }
 
 .dark .project-dialog-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: #9ca3af;
+  background-color: #B9B0A4;
 }
 
 @layer components {
@@ -149,10 +153,10 @@
     animation: spin-slow-reverse 15s linear infinite;
   }
 
-  /* Silver orbital halo: a crisp comet and a slower, counter-rotating satellite. */
+  /* Neutral inner comet with a burnt-orange outer orbit and satellite. */
   .portrait-halo {
-    --halo-light: 67 76 89;
-    --halo-track: rgb(67 76 89 / 0.18);
+    --halo-light: 101 93 83;
+    --halo-track: rgb(101 93 83 / 0.18);
     position: absolute;
     inset: -36px;
     z-index: 1;
@@ -163,8 +167,8 @@
   }
 
   html.dark .portrait-halo {
-    --halo-light: 245 248 255;
-    --halo-track: rgb(225 231 241 / 0.17);
+    --halo-light: 244 239 230;
+    --halo-track: rgb(244 239 230 / 0.17);
   }
 
   .portrait-halo-inner,
@@ -211,8 +215,10 @@
   }
 
   .portrait-halo-orbit {
+    --halo-light: 198 95 50; /* Matches accent.DEFAULT. */
     inset: 10px;
-    border: 1px solid var(--halo-track);
+    border: 1px solid;
+    @apply border-accent/30;
     animation: halo-satellite 22s linear infinite;
   }
 
@@ -290,7 +296,7 @@
   html.dark .spotlight-radial {
     background: radial-gradient(
       600px circle at var(--spotlight-x) var(--spotlight-y),
-      rgba(255, 255, 255, 0.06),
+      rgba(244, 239, 230, 0.06),
       transparent 40%
     );
     mix-blend-mode: plus-lighter;
@@ -299,7 +305,7 @@
   html:not(.dark) .spotlight-radial {
     background: radial-gradient(
       500px circle at var(--spotlight-x) var(--spotlight-y),
-      rgba(0, 0, 0, 0.10),
+      rgba(18, 17, 15, 0.10),
       transparent 50%
     );
     mix-blend-mode: multiply;
@@ -312,16 +318,16 @@
   }
 
   .dark ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(244, 239, 230, 0.05);
   }
 
   .dark ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(244, 239, 230, 0.2);
     border-radius: 4px;
   }
 
   .dark ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(244, 239, 230, 0.3);
   }
 
   /* Custom scrollbar for light mode */
@@ -331,16 +337,16 @@
   }
 
   html:not(.dark) ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(18, 17, 15, 0.05);
   }
 
   html:not(.dark) ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(18, 17, 15, 0.2);
     border-radius: 4px;
   }
 
   html:not(.dark) ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(18, 17, 15, 0.3);
   }
 }
 
